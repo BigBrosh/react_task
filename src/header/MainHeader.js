@@ -1,11 +1,12 @@
 import React from 'react';
 import {Faves} from './Faves';
+import {headerStyles} from './styles/headerStyles';
 
 export class MainHeader extends React.Component {
 	render() {
 		return (
-			<header>
-				<h1>PropertyCross</h1>
+			<header style={headerStyles.header}>
+				<h1 style={headerStyles.h1}>PropertyCross</h1>
 				<Faves />
 			</header>
 		)

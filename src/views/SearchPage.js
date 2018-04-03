@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {MainHeader} from '../header/MainHeader';
+import {Instructional} from '../header/Instructional';
+
+import {SearchField} from '../search/SearchField';
 
 export class SearchPage extends React.Component {
 	constructor(props) {
@@ -10,7 +13,13 @@ export class SearchPage extends React.Component {
 
 	render() {
 		return(
-			<MainHeader />
-		)
+			<div>
+				<MainHeader />
+				<div>
+					<Instructional />
+					<SearchField />
+				</div>
+			</div>
+		);
 	}
 }
