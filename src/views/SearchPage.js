@@ -6,6 +6,8 @@ import {Instructional} from '../header/Instructional';
 
 import {SearchField} from '../search/SearchField';
 
+import {SearchResult} from '../search/SearchResults/SearchResult'
+
 export class SearchPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -18,6 +20,7 @@ export class SearchPage extends React.Component {
 				<div>
 					<Instructional />
 					<SearchField />
+					<SearchResult />
 				</div>
 			</div>
 		);

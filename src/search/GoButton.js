@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const GoButton = () => <button>Go</button>;
+export const GoButton = props => <button onClick={props.onClick}>Go</button>;
