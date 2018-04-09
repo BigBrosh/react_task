@@ -24,7 +24,7 @@ export class SearchResult extends React.Component {
 		}
 
 		return (
-			current
+			<current />
 		);
 	}
 }

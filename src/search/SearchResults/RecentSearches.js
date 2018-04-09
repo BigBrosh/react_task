@@ -5,7 +5,6 @@ export class RecentSearches extends React.Component {
 		return(
 			<div>
 				<p>Recent Searches:</p>
-				<div className='search_output recent'></div>
 			</div>
 		);
 	}
