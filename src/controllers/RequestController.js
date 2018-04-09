@@ -1,10 +1,10 @@
 export class RequestController {
 	send(properties) {
 		return (
-			fetch('https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=leeds', {
-				method: 'GET',
+			fetch(properties.url, {
+				method: properties.method || 'GET',
 				headers: {
-					"Content-Type": "text/plain"
+					"Content-Type": properties.headers.contentType || "text/plain"
 				}
 			})
 		)

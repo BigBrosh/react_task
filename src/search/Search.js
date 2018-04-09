@@ -21,32 +21,38 @@ export class Search extends React.Component {
 		this.setErrorComponent = this.setErrorComponent.bind(this);
 	}
 
-	setSelectComponent() {
+	setSelectComponent(response) {
 		this.setState({
-			page: 'SelectLocation'
+			page: 'SelectLocation',
+			response: response
 		});
 	}
 
-	setErrorComponent() {
+	setErrorComponent(response) {
 		this.setState({
-			page: 'ErrorResult'
+			page: 'ErrorResult',
+			response: response
 		});
 	}
 
 	send() {
-		this.RequestController.send().then(response => 
+		this.RequestController.send({
+			url: 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=leeds',
+			method: 'GET',
+			headers: {
+				contentType: "text/plain"
+			}
+		}).then(response => 
 		{
 			this.RequestController.getResponse(response).then(data => 
-			{  
+			{
 				if (data.response.application_response_code == 100 ||
 					data.response.application_response_code == 101 ||
 					data.response.application_response_code == 110)
-					this.setSelectComponent();
-
-				console.log(data.response.listings[0]);  
+					this.setSelectComponent(data.response.listings);
 			});
 		}).catch(error => {
-			this.setErrorComponent();
+			this.setErrorComponent(error);
 			this.RequestController.catchError(error);
 		})
 	}
@@ -60,11 +66,11 @@ export class Search extends React.Component {
 				break;
 
 			case 'SelectLocation':
-				current = <SelectLocation />
+				current = <SelectLocation response={this.state.response}/>
 				break;
 
 			case 'ErrorResult':
-				current = <ErrorResult />
+				current = <ErrorResult response={this.state.response}/>
 				break;
 
 			default: return false;
