@@ -46,9 +46,9 @@ export class Search extends React.Component {
 		{
 			this.RequestController.getResponse(response).then(data => 
 			{
-				if (data.response.application_response_code == 100 ||
-					data.response.application_response_code == 101 ||
-					data.response.application_response_code == 110)
+				if (data.response.application_response_code === 100 ||
+					data.response.application_response_code === 101 ||
+					data.response.application_response_code === 110)
 					this.setSelectComponent(data.response.listings);
 			});
 		}).catch(error => {
