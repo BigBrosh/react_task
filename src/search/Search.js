@@ -48,15 +48,28 @@ export class Search extends React.Component {
 		{
 			this.RequestController.getResponse(response).then(data => 
 			{
-				if (data.response.application_response_code == 100 ||
-					data.response.application_response_code == 101 ||
-					data.response.application_response_code == 110)
+				if (data.response.application_response_code >= 100 &&
+					data.response.application_response_code < 200)
 					this.setSelectComponent(data.response.listings);
+				
+				else 
+				{
+					let error = {
+						name: data.response.application_response_code,
+						message: data.response.application_response_text
+					};
+
+					this.catchError(error);
+				}
 			});
 		}).catch(error => {
-			this.setErrorComponent(error);
-			this.RequestController.catchError(error);
+			this.catchError(error);
 		})
+	}
+
+	catchError(error) {		
+		this.setErrorComponent(error);
+		this.RequestController.catchError(error);
 	}
 
 	render() {
