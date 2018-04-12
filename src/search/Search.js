@@ -35,9 +35,11 @@ export class Search extends React.Component {
 		});
 	}
 
-	send() {
+	send(e) {
+		let placeName = e.target.parentNode.getElementsByTagName('input')[0].value;
+
 		this.RequestController.send({
-			url: 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=leeds',
+			url: 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=' + placeName.toLowerCase(),
 			method: 'GET',
 			headers: {
 				contentType: "text/plain"
@@ -46,9 +48,9 @@ export class Search extends React.Component {
 		{
 			this.RequestController.getResponse(response).then(data => 
 			{
-				if (data.response.application_response_code === 100 ||
-					data.response.application_response_code === 101 ||
-					data.response.application_response_code === 110)
+				if (data.response.application_response_code == 100 ||
+					data.response.application_response_code == 101 ||
+					data.response.application_response_code == 110)
 					this.setSelectComponent(data.response.listings);
 			});
 		}).catch(error => {
