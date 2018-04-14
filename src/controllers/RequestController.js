@@ -19,6 +19,12 @@ export class RequestController {
 		else
 		{
 			let newList = JSON.parse(localStorage.getItem('recentSearches'));
+
+			for (let i = 0; i < newList.length; i++) {
+				if (newList[i].url === request.url)
+					return false;
+			}
+
 			newList.push(request);
 			localStorage.setItem('recentSearches', JSON.stringify(newList));
 		}
