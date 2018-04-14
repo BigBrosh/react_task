@@ -21,7 +21,7 @@ export class MyLocationButton extends React.Component {
 
 		this.props.onClick({
 			info: `${pos.latitude}, ${pos.longitude}`,
-			action: 'centre_point='
+			action: 'centre_point'
 		});
 	}
 

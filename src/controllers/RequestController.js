@@ -11,6 +11,9 @@ export class RequestController {
 	}
 
 	sendToLocal(place, request) {
+		// input data should contain localStorage key's name and
+		// object with key parameters
+
 		if (localStorage.getItem(place) == undefined)
 		{
 			let list = [request];
@@ -31,6 +34,8 @@ export class RequestController {
 	}
 
 	getFromLocal(place) {
+		// input data contains localStorages key's name
+
 		if (localStorage.getItem(place))
 			return JSON.parse(localStorage.getItem(place));
 	}

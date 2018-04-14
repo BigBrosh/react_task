@@ -12,7 +12,7 @@ export class SelectLocation extends React.Component {
 
 	showItem(e) {
 		this.ItemController.renderComponent({
-			event: e,
+			event: e.target.id,
 			response: this.props.response
 		});
 	}
