@@ -36,8 +36,8 @@ export class Search extends React.Component {
 	}
 
 	send(data) {
-		let placeName = data.event.target.parentNode.getElementsByTagName('input')[0].value,
-			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&' + data.action + placeName.toLowerCase();
+		let extraData = data.info,
+			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&' + data.action + extraData.toLowerCase();
 
 		this.RequestController.send({
 			url: url,

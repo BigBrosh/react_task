@@ -8,7 +8,7 @@ export class GoButton extends React.Component {
 
 	click(e) {
 		this.props.onClick({
-			event: e,
+			info: e.target.parentNode.getElementsByTagName('input')[0].value,
 			action: 'place_name='
 		});
 	}
