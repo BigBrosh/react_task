@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {GoButton} from './GoButton';
-import {MyLocationButton} from './MyLocationButton';
+import {GoButton} from './buttons/GoButton';
+import {MyLocationButton} from './buttons/MyLocationButton';
 import {RequestController} from '../controllers/RequestController';
 import {RecentSearches} from './SearchResults/RecentSearches';
 import {SelectLocation} from './SearchResults/SelectLocation';
