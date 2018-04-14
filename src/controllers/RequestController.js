@@ -10,15 +10,15 @@ export class RequestController {
 		)
 	}
 
-	sendToLocal(request) {
-		if (localStorage.getItem('recentSearches') == undefined)
+	sendToLocal(place, request) {
+		if (localStorage.getItem(place) == undefined)
 		{
 			let list = [request];
-			localStorage.setItem('recentSearches', JSON.stringify(list));
+			localStorage.setItem(place, JSON.stringify(list));
 		}
 		else
 		{
-			let newList = JSON.parse(localStorage.getItem('recentSearches'));
+			let newList = JSON.parse(localStorage.getItem(place));
 
 			for (let i = 0; i < newList.length; i++) {
 				if (newList[i].url === request.url)
@@ -26,13 +26,13 @@ export class RequestController {
 			}
 
 			newList.push(request);
-			localStorage.setItem('recentSearches', JSON.stringify(newList));
+			localStorage.setItem(place, JSON.stringify(newList));
 		}
 	}
 
-	getFromLocal() {
-		if (localStorage.getItem('recentSearches'))
-			return JSON.parse(localStorage.getItem('recentSearches'));
+	getFromLocal(place) {
+		if (localStorage.getItem(place))
+			return JSON.parse(localStorage.getItem(place));
 	}
 
 	getResponse(response) {

@@ -53,7 +53,7 @@ export class Search extends React.Component {
 				{
 					this.setSelectComponent(data.response.listings);					
 
-					this.RequestController.sendToLocal({
+					this.RequestController.sendToLocal('recentSearches', {
 						url: url,
 						totalResults: data.response.total_results,
 						searchValue: extraData

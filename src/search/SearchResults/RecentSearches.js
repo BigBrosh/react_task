@@ -11,9 +11,9 @@ export class RecentSearches extends React.Component {
 	render() {
 		let list;
 
-		if (this.RequestController.getFromLocal() != undefined)
+		if (this.RequestController.getFromLocal('recentSearches') != undefined)
 		{
-			list = this.RequestController.getFromLocal().map(el => {
+			list = this.RequestController.getFromLocal('recentSearches').map(el => {
 				return (
 					<li>{el.searchValue} ({el.totalResults})</li>
 				);
