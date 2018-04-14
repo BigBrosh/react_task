@@ -1,17 +1,37 @@
 import React from 'react';
 
-let getPosition = () => {	
-	navigator.geolocation.getCurrentPosition(showPosition, errorMessage, {timeout: 5000});	
-}
+export class MyLocationButton extends React.Component {
+	constructor(props) {
+		super(props);
+		this.click = this.click.bind(this);
+		this.click = this.click.bind(this);
+		this.showPosition = this.showPosition.bind(this);
+		this.errorMessage = this.errorMessage.bind(this);
+	}
 
-let showPosition = position => {
-	/* Выводим координаты */
-	console.log("Широта: " + position.coords.latitude);
-	console.log("Долгота: " + position.coords.longitude); 
-}
+	click() {	
+		navigator.geolocation.getCurrentPosition(this.showPosition, this.errorMessage, {timeout: 5000});	
+	}
 
-let errorMessage = error => {
-	console.log(error.message);
-}
+	showPosition(position) {
+		let pos = {
+			latitude: position.coords.latitude,
+			longitude: position.coords.longitude
+		};
 
-export const MyLocationButton = () => <button onClick={getPosition}>My location</button>;
+		this.props.onClick({
+			info: `${pos.latitude}, ${pos.longitude}`,
+			action: 'centre_point='
+		});
+	}
+
+	errorMessage(error) {
+		console.log(error.message);
+	}
+
+	render() {
+		return(
+			<button onClick={this.click}>My location</button>
+		);
+	}
+}

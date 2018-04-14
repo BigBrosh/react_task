@@ -58,6 +58,16 @@ export class Search extends React.Component {
 						totalResults: data.response.total_results
 					})
 				}
+
+				else if (data.response.total_results === 0)
+				{
+					let error = {
+						name: 'Empty',
+						message: 'there were no results returned'
+					};
+
+					this.catchError(error);
+				}
 				
 				else 
 				{
@@ -104,7 +114,8 @@ export class Search extends React.Component {
 					<input type="text"></input>
 					<GoButton 
 						onClick={this.send} />
-					<MyLocationButton />
+					<MyLocationButton
+						onClick={this.send} />
 				</div>
 				{current}
 			</div>
