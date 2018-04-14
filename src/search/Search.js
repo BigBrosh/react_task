@@ -55,7 +55,8 @@ export class Search extends React.Component {
 
 					this.RequestController.sendToLocal({
 						url: url,
-						totalResults: data.response.total_results
+						totalResults: data.response.total_results,
+						searchValue: extraData
 					})
 				}
 

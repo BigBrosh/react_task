@@ -15,7 +15,7 @@ export class RecentSearches extends React.Component {
 		{
 			list = this.RequestController.getFromLocal().map(el => {
 				return (
-					<li>{el.totalResults}</li>
+					<li>{el.searchValue} ({el.totalResults})</li>
 				);
 			});
 		}

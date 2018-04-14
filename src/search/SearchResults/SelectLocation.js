@@ -1,24 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {ItemPage} from '../../views/ItemPage'
+import {ItemController} from '../../controllers/ItemController';
 
 export class SelectLocation extends React.Component {
 	constructor(props) {
 		super(props);
-		this.renderComponent = this.renderComponent.bind(this);
+		this.ItemController = new ItemController();
+		this.showItem = this.showItem.bind(this);
 	}
 
-	renderComponent(e) {
-		ReactDOM.render(
-			<ItemPage list={this.props.response} number={e.target.id}/>,
-			document.getElementById('root')
-		);
+	showItem(e) {
+		this.ItemController.renderComponent({
+			event: e,
+			response: this.props.response
+		});
 	}
 
 	render() {
 		let list = this.props.response.map((el, i) => {
-			return <li key={i} id={i} onClick={this.renderComponent}>{el.title}</li>
+			return <li key={i} id={i} onClick={this.showItem}>{el.title}</li>
 		});
 
 		return(
