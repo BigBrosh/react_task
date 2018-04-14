@@ -36,21 +36,28 @@ export class Search extends React.Component {
 	}
 
 	send(e) {
-		let placeName = e.target.parentNode.getElementsByTagName('input')[0].value;
+		let placeName = e.target.parentNode.getElementsByTagName('input')[0].value,
+			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=' + placeName.toLowerCase();
 
 		this.RequestController.send({
-			url: 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=' + placeName.toLowerCase(),
+			url: url,
 			method: 'GET',
 			headers: {
 				contentType: "text/plain"
 			}
-		}).then(response => 
-		{
+		}).then(response => {
 			this.RequestController.getResponse(response).then(data => 
 			{
 				if (data.response.application_response_code >= 100 &&
 					data.response.application_response_code < 200)
-					this.setSelectComponent(data.response.listings);
+				{
+					this.setSelectComponent(data.response.listings);					
+
+					this.RequestController.sendToLocal({
+						url: url,
+						totalResults: data.response.total_results
+					})
+				}
 				
 				else 
 				{
