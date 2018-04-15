@@ -6,11 +6,10 @@ export class MyLocationButton extends React.Component {
 		this.click = this.click.bind(this);
 		this.click = this.click.bind(this);
 		this.showPosition = this.showPosition.bind(this);
-		this.errorMessage = this.errorMessage.bind(this);
 	}
 
 	click() {	
-		navigator.geolocation.getCurrentPosition(this.showPosition, this.errorMessage, {timeout: 5000});	
+		navigator.geolocation.getCurrentPosition(this.showPosition);	
 	}
 
 	showPosition(position) {
@@ -23,10 +22,6 @@ export class MyLocationButton extends React.Component {
 			info: `${pos.latitude}, ${pos.longitude}`,
 			action: 'centre_point'
 		});
-	}
-
-	errorMessage(error) {
-		console.log(error.message);
 	}
 
 	render() {

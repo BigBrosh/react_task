@@ -35,15 +35,13 @@ export class Search extends React.Component {
 		});
 	}
 
-	send(data) {
-		// input data should contain info about search's type - action (e.g. place_name, cetre_point),
-		// extra information - info, that comes after action (e.g. place's name or centre coordinates) and
+	send(inputData) {
+		// input data should contain info about search's type - action (e.g. place_name, centre_point),
+		// extra information - info, that comes after action and
 		// number of page (1 by default)
 
-		let extraData = data.info,
-			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy' + '&page=' + (data.page || 1) + '&' + data.action + '=' + extraData.toLowerCase();
-
-			console.log(url);
+		let extraData = inputData.info,
+			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy' + '&page=' + (inputData.page || 1) + '&' + inputData.action + '=' + extraData.toLowerCase();
 
 		this.RequestController.send({
 			url: url,
@@ -64,6 +62,16 @@ export class Search extends React.Component {
 						totalResults: data.response.total_results,
 						searchValue: extraData
 					})
+				}
+
+				else if (inputData.action == 'centre_point' && data.response.total_results === 0)
+				{					
+					let error = {
+						name: 'Location not matched',
+						message: 'the location given was not recognised'
+					};
+
+					this.catchError(error);
 				}
 
 				else if (data.response.total_results === 0)

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import {MainHeader} from '../header/MainHeader';
 import {Instructional} from '../header/Instructional';
