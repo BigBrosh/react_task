@@ -36,11 +36,14 @@ export class Search extends React.Component {
 	}
 
 	send(data) {
-		// input data should contain info about search's type - action (e.g. place_name, cetre_point) and
-		// extra information - info, that comes after action (e.g. place's name or centre coordinates)
+		// input data should contain info about search's type - action (e.g. place_name, cetre_point),
+		// extra information - info, that comes after action (e.g. place's name or centre coordinates) and
+		// number of page (1 by default)
 
 		let extraData = data.info,
-			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&' + data.action + '=' + extraData.toLowerCase();
+			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy' + '&page=' + (data.page || 1) + '&' + data.action + '=' + extraData.toLowerCase();
+
+			console.log(url);
 
 		this.RequestController.send({
 			url: url,
@@ -88,7 +91,10 @@ export class Search extends React.Component {
 		})
 	}
 
-	catchError(error) {		
+	catchError(error) {
+		// input data should contain object with error's name and
+		// error's message
+
 		this.setErrorComponent(error);
 		this.RequestController.catchError(error);
 	}

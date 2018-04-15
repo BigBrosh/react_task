@@ -24,7 +24,7 @@ export class RequestController {
 			let newList = JSON.parse(localStorage.getItem(place));
 
 			for (let i = 0; i < newList.length; i++) {
-				if (newList[i].url === request.url)
+				if (newList[i].searchValue === request.searchValue)
 					return false;
 			}
 
