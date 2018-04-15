@@ -8,13 +8,14 @@ export class ItemPage extends React.Component {
 				<p>{item.price_currency} {item.price}</p>
 				<p>{item.title}</p>
 
-				<img 	src={item.img_url} 
+				<img 	src={item.img_url}
+						alt={item.lister_name}
 						style={{
 							maxWidth: item.img_width, 
 							width: '100%'
 						}} />
 
-				<p>{item.bedroom_number} bed, {item.bathroom_number} bathrooms</p>
+				<p>{item.bedroom_number || 0} bed, {item.bathroom_number || 0} bathrooms</p>
 				<p>{item.summary}</p>
 			</div>
 		)
