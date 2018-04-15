@@ -1,5 +1,5 @@
 import React from 'react';
-import {Faves} from './Faves';
+import {Faves} from './buttons/Faves';
 import {headerStyles} from './styles/headerStyles';
 
 export class MainHeader extends React.Component {
