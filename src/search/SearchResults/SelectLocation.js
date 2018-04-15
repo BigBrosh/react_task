@@ -12,19 +12,21 @@ export class SelectLocation extends React.Component {
 	showItem(e) {
 		this.ItemController.renderComponent({
 			event: e.target.id,
-			response: this.props.response
+			response: this.props.response.list,
+			numberInList: e.target.parentNode.getAttribute('data-index')
 		});
 	}
 
 	render() {
-		let list = this.props.response.map((el, i) => {
+		let index = this.props.response.index;
+		let list = this.props.response.list.map((el, i) => {
 			return <li key={i} id={i} onClick={this.showItem}>{el.title}</li>
 		});
 
 		return(
 			<div>
 				<p>Please select a location below:</p>
-				<ul>
+				<ul data-index={index}>
 					{list}
 				</ul>
 			</div>

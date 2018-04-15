@@ -9,7 +9,9 @@ export class ItemController {
 		// and number
 
 		ReactDOM.render(
-			<ItemPage list={data.response} number={data.event}/>,
+			<ItemPage 	list={data.response} 
+						number={data.event}
+						numberInList={data.numberInList}/>,
 			document.getElementById('root')
 		);
 	}

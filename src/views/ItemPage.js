@@ -4,7 +4,8 @@ export class ItemPage extends React.Component {
 	render() {
 		let item = this.props.list[this.props.number];
 		return (
-			<div>
+			<div 	data-index={this.props.number}
+					data-numberinlist={this.props.numberInList}>
 				<p>{item.price_currency} {item.price}</p>
 				<p>{item.title}</p>
 

@@ -83,7 +83,10 @@ export class Search extends React.Component {
 					data.response.application_response_code < 200)
 				{
 					this.ClearInterval('timing');
-					this.setSelectComponent(data.response.listings);					
+					this.setSelectComponent({
+						list: data.response.listings,
+						index: inputData.index
+					});
 
 					this.RequestController.sendToLocal('recentSearches', {
 						url: url,
@@ -140,7 +143,7 @@ export class Search extends React.Component {
 		switch(this.state.page)
 		{
 			case 'RecentSearches':
-				current = <RecentSearches setSelectComponent={this.send}/>;
+				current = <RecentSearches showResults={this.send}/>;
 				break;
 
 			case 'SelectLocation':
