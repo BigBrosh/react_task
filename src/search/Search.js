@@ -16,6 +16,8 @@ export class Search extends React.Component {
 		};
 
 		this.RequestController = new RequestController();
+		this.timer = 0;
+
 		this.send = this.send.bind(this);
 		this.setSelectComponent = this.setSelectComponent.bind(this);
 		this.setErrorComponent = this.setErrorComponent.bind(this);
@@ -35,6 +37,29 @@ export class Search extends React.Component {
 		});
 	}
 
+	TimeOut(name) {
+		return (
+			setInterval(( () => {
+				if (this.timer === 5)
+				{
+					let error = {
+						name: 'Timeout',
+						message: 'an error occurred while searching. Please check your network connection and try again'
+					}
+
+					this.ClearInterval(name);
+					this.catchError(error);
+				}
+
+				this.timer++;
+			}), 1000)
+		);
+	}
+
+	ClearInterval(name) {
+		clearInterval(this[name]);
+	}
+
 	send(inputData) {
 		// input data should contain info about search's type - action (e.g. place_name, centre_point),
 		// extra information - info, that comes after action and
@@ -42,6 +67,8 @@ export class Search extends React.Component {
 
 		let extraData = inputData.info,
 			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy' + '&page=' + (inputData.page || 1) + '&' + inputData.action + '=' + extraData.toLowerCase();
+
+		this.timing = this.TimeOut('timing');
 
 		this.RequestController.send({
 			url: url,
@@ -55,6 +82,7 @@ export class Search extends React.Component {
 				if (data.response.application_response_code >= 100 &&
 					data.response.application_response_code < 200)
 				{
+					this.ClearInterval('timing');
 					this.setSelectComponent(data.response.listings);					
 
 					this.RequestController.sendToLocal('recentSearches', {

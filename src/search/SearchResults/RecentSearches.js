@@ -15,7 +15,7 @@ export class RecentSearches extends React.Component {
 	showItems(e) {
 		let data = {
 			action: 'place_name',
-			info: e.target.getAttribute('data-searchValue')
+			info: e.target.getAttribute('data-searchvalue')
 		};
 
 		this.props.setSelectComponent(data);
@@ -26,9 +26,11 @@ export class RecentSearches extends React.Component {
 
 		if (this.RequestController.getFromLocal('recentSearches') != undefined)
 		{
-			list = this.RequestController.getFromLocal('recentSearches').map(el => {
+			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
 				return (
-					<li data-searchValue={el.searchValue} onClick={this.showItems}>{el.searchValue} ({el.totalResults})</li>
+					<li data-searchvalue={el.searchValue} 
+						key={i}
+						onClick={this.showItems}>{el.searchValue} ({el.totalResults})</li>
 				);
 			});
 		}
