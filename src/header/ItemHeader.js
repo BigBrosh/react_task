@@ -7,7 +7,7 @@ export class ItemHeader extends React.Component {
 		return (
 			<header style={headerStyles.header}>
 				<h1 style={headerStyles.h1}>Property Details</h1>
-				<ToggleFave />
+				<ToggleFave place={this.props.place}/>
 			</header>
 		)
 	}

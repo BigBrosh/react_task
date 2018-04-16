@@ -91,7 +91,8 @@ export class Search extends React.Component {
 					this.RequestController.sendToLocal('recentSearches', {
 						url: url,
 						totalResults: data.response.total_results,
-						searchValue: extraData
+						searchValue: extraData,
+						uniqueKey: 'searchValue'
 					})
 				}
 

@@ -8,12 +8,13 @@ export class ItemPage extends React.Component {
 		return (
 			<div 	id='item'
 					data-index={this.props.number}	
-					data-numberinlist={this.props.numberInList}>
-				<ItemHeader />
-				<p>{item.price_currency} {item.price}</p>
+					data-numberinlist={this.props.numberInList}
+					data-name={item.title}>
+				<ItemHeader place={item.title}/>
+				<p id='itemPrice'>{item.price_currency} {item.price}</p>
 				<p>{item.title}</p>
 				<img 	src={item.img_url}
-						alt={item.lister_name}
+						alt={item.title}
 						style={{
 							maxWidth: item.img_width, 
 							width: '100%'}} />
