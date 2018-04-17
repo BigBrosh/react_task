@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {RequestController} from '../../controllers/RequestController';
 import {ItemController} from '../../controllers/ItemController';
+import {RecentSearchesPage} from '../../views/RecentSearchesPage';
 
 export class RecentSearches extends React.Component {
 	constructor(props){
@@ -16,7 +18,8 @@ export class RecentSearches extends React.Component {
 		let data = {
 			action: 'place_name',
 			info: e.target.getAttribute('data-searchvalue'),
-			index: e.target.getAttribute('data-index')
+			index: e.target.getAttribute('data-index'),
+			RecentSearchesPage: true
 		};
 
 		this.props.showResults(data);

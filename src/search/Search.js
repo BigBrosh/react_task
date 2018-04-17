@@ -1,11 +1,16 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {GoButton} from './buttons/GoButton';
 import {MyLocationButton} from './buttons/MyLocationButton';
+
 import {RequestController} from '../controllers/RequestController';
+
 import {RecentSearches} from './SearchResults/RecentSearches';
 import {SelectLocation} from './SearchResults/SelectLocation';
 import {ErrorResult} from './SearchResults/ErrorResult';
+
+import {RecentSearchesPage} from '../views/RecentSearchesPage';
 
 export class Search extends React.Component {
 	constructor(props) {
@@ -83,6 +88,15 @@ export class Search extends React.Component {
 					data.response.application_response_code < 200)
 				{
 					this.ClearInterval('timing');
+
+					if (inputData.RecentSearchesPage === true)
+					{
+						ReactDOM.render(
+							<RecentSearchesPage data={data} />,
+							document.getElementById('root')
+						);
+					}
+
 					this.setSelectComponent({
 						list: data.response.listings,
 						index: inputData.index
