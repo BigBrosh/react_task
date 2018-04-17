@@ -30,7 +30,10 @@ export class FavesPage extends React.Component {
 		}
 
 		return (
-			<ul>{result}</ul>
+			<div>
+				<h2>Favourites</h2>
+				<ul>{result}</ul>
+			</div>
 		);
 	}
 }
