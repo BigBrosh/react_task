@@ -8,16 +8,14 @@ export class ItemPage extends React.Component {
 		return (
 			<div 	id='item'
 					data-index={this.props.number}	
-					data-numberinlist={this.props.numberInList}
-					data-name={item.title}>
+					data-numberinlist={this.props.numberInList}>
 				<ItemHeader place={item.title}/>
-				<p id='itemPrice'>{item.price_currency} {item.price}</p>
+				<p id='itemPrice'>{item.price_formatted}</p>
 				<p>{item.title}</p>
-				<img 	src={item.img_url}
+				<img 	id='item_image'
+						src={item.img_url}
 						alt={item.title}
-						style={{
-							maxWidth: item.img_width, 
-							width: '100%'}} />
+						style={{maxWidth: '100%'}} />
 
 				<p>{item.bedroom_number || 0} bed, {item.bathroom_number || 0} bathrooms</p>
 				<p>{item.summary}</p>
