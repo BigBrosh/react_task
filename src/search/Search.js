@@ -63,6 +63,7 @@ export class Search extends React.Component {
 
 	ClearInterval(name) {
 		clearInterval(this[name]);
+		this.timer = 0;
 	}
 
 	send(inputData) {
@@ -92,9 +93,17 @@ export class Search extends React.Component {
 					if (inputData.RecentSearchesPage === true)
 					{
 						ReactDOM.render(
-							<RecentSearchesPage data={data} />,
+							<RecentSearchesPage data={data} 
+												send={this.send} 
+												index={inputData.index} 
+												info={inputData.info} />,
 							document.getElementById('root')
 						);
+					}
+
+					else if (inputData.getResponse === true && data){
+						this.ClearInterval('timing');
+						inputData.onSuccess(data);
 					}
 
 					this.setSelectComponent({
