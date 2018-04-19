@@ -1,16 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// buttons
 import {GoButton} from './buttons/GoButton';
 import {MyLocationButton} from './buttons/MyLocationButton';
 
+// controllers
 import {RequestController} from '../controllers/RequestController';
 
+// search results
 import {RecentSearches} from './SearchResults/RecentSearches';
 import {SelectLocation} from './SearchResults/SelectLocation';
 import {ErrorResult} from './SearchResults/ErrorResult';
 
+// pages
 import {RecentSearchesPage} from '../views/RecentSearchesPage';
+
+// styles
+import {styles} from '../styles/mainStyles';
 
 export class Search extends React.Component {
 	constructor(props) {
@@ -184,11 +191,12 @@ export class Search extends React.Component {
 		return (
 			<div>
 				<div>
-					<input type="text"></input>
-					<GoButton 
-						onClick={this.send} />
-					<MyLocationButton
-						onClick={this.send} />
+					<input 	style={styles.searchWrapp.input}
+							type="text"></input>
+					<GoButton 	styles={Object.assign(styles.buttons, styles.searchWrapp.goButton)}
+								onClick={this.send} />
+					<MyLocationButton 	styles={styles.buttons}
+										onClick={this.send} />
 				</div>
 				{current}
 			</div>

@@ -5,6 +5,8 @@ import {RequestController} from '../../controllers/RequestController';
 import {ItemController} from '../../controllers/ItemController';
 import {RecentSearchesPage} from '../../views/RecentSearchesPage';
 
+import {styles} from '../../styles/mainStyles';
+
 export class RecentSearches extends React.Component {
 	constructor(props){
 		super(props);
@@ -32,7 +34,8 @@ export class RecentSearches extends React.Component {
 		{
 			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
 				return (
-					<li data-searchvalue={el.searchValue}
+					<li style={styles.list}
+						data-searchvalue={el.searchValue}
 						data-index={i}
 						key={i}
 						onClick={this.showItems}>{el.searchValue} ({el.totalResults})</li>

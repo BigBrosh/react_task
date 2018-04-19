@@ -26,7 +26,8 @@ export class MyLocationButton extends React.Component {
 
 	render() {
 		return(
-			<button onClick={this.click}>My location</button>
+			<button 	style={this.props.styles}
+						onClick={this.click}>My location</button>
 		);
 	}
 }

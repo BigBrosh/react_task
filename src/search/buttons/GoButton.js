@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {RequestController} from '../../controllers/RequestController'
+import {RequestController} from '../../controllers/RequestController';
+import {styles} from '../../styles/mainStyles';
 
 export class GoButton extends React.Component {
 	constructor(props) {
@@ -20,7 +21,8 @@ export class GoButton extends React.Component {
 
 	render() {
 		return(
-			<button onClick={this.click}>Go</button>
+			<button style={this.props.styles} 
+					onClick={this.click}>Go</button>
 		);
 	}
 }
