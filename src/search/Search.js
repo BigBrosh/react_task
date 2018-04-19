@@ -165,6 +165,7 @@ export class Search extends React.Component {
 		// input data should contain object with error's name and
 		// error's message
 
+		this.ClearInterval('timing');
 		this.setErrorComponent(error);
 		this.RequestController.catchError(error);
 	}
@@ -193,7 +194,7 @@ export class Search extends React.Component {
 				<div>
 					<input 	style={styles.searchWrapp.input}
 							type="text"></input>
-					<GoButton 	styles={Object.assign(styles.buttons, styles.searchWrapp.goButton)}
+					<GoButton 	styles={Object.assign({}, styles.buttons, styles.searchWrapp.goButton)}
 								onClick={this.send} />
 					<MyLocationButton 	styles={styles.buttons}
 										onClick={this.send} />
