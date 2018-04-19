@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {LoadMore} from '../views/buttons/LoadMore'
+
 export class RecentSearchesPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.list = [];
 		this.state = {
 			button: 'Load more...',
-			page: 1
+			page: 1,
+			loading: 'done'
 		};
 
 		this.updateItem = this.updateItem.bind(this);
@@ -44,7 +47,6 @@ export class RecentSearchesPage extends React.Component {
 					<div>
 						<p>{el.price_formatted}<br/>{el.title}</p>
 					</div>
-					<p>{data.response.created_unix}</p>
 				</li>
 			);
 		});
@@ -55,7 +57,6 @@ export class RecentSearchesPage extends React.Component {
 		let totalResults = data.response.total_results,
 			currentMatches = +data.request.num_res + +data.request.offset;
 		currentMatches = currentMatches >= totalResults ? totalResults : currentMatches;
-		console.log(data.request.page);
 
 		let matches = <p>{currentMatches} of {totalResults}</p>;
 
@@ -65,7 +66,7 @@ export class RecentSearchesPage extends React.Component {
 				<ul>
 					{list}
 				</ul>
-				<button onClick={this.loadMore}>{this.state.button}</button>
+				<LoadMore loading={this.state.loading} loadMore={this.loadMore}/>
 			</div>
 		);
 	}
