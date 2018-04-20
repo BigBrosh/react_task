@@ -11,11 +11,23 @@ export class GoButton extends React.Component {
 	}
 
 	click(e) {
+		let info = e.target.parentNode.getElementsByTagName('input')[0].value,
+			recentSearches = this.RequestController.getFromLocal('recentSearches'),
+			index = recentSearches ? recentSearches.length : 0;
+
+		if (recentSearches)
+		{
+			recentSearches.forEach((el, i) => {
+				if (el.searchValue === info)
+					index = i;
+			});
+		}
+
 		this.props.onClick({
-			info: e.target.parentNode.getElementsByTagName('input')[0].value,
+			info: info,
 			action: 'place_name',
 			page: 1,
-			index: this.RequestController.getFromLocal('recentSearches') + 1 || 0
+			index: index
 		});
 	}
 
