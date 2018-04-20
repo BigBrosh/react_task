@@ -24,8 +24,11 @@ export class Search extends React.Component {
 		super(props);
 
 		this.state = {
-			page: 'RecentSearches'
+			page: 'RecentSearches',
+			inputValue: ''
 		};
+
+		this.onInput = this.onInput.bind(this);
 
 		this.RequestController = new RequestController();
 		this.timer = 0;
@@ -33,6 +36,12 @@ export class Search extends React.Component {
 		this.send = this.send.bind(this);
 		this.setSelectComponent = this.setSelectComponent.bind(this);
 		this.setErrorComponent = this.setErrorComponent.bind(this);
+	}
+
+	onInput(e) {
+		this.setState({
+			inputValue: e.target.value
+		});
 	}
 
 	setSelectComponent(response) {
@@ -192,8 +201,10 @@ export class Search extends React.Component {
 		return (
 			<div>
 				<div>
-					<input 	style={styles.searchWrapp.input}
-							type="text"></input>
+					<input 	onInput={this.onInput}
+							style={styles.searchWrapp.input}
+							type="text"
+							value={this.state.inputValue}></input>
 					<GoButton 	styles={Object.assign({}, styles.buttons, styles.searchWrapp.goButton)}
 								onClick={this.send} />
 					<MyLocationButton 	styles={styles.buttons}
