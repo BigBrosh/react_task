@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {LoadMore} from '../views/buttons/LoadMore'
+import {LoadMore} from '../views/buttons/LoadMore';
+
+import {styles} from '../styles/mainStyles';
 
 export class RecentSearchesPage extends React.Component {
 	constructor(props) {
@@ -39,7 +41,8 @@ export class RecentSearchesPage extends React.Component {
 		let data = this.state.newList || this.props.data;
 		let result = data.response.listings.map((el, i) => {
 			return (
-				<li key={`${this.state.page}${i}`}>
+				<li 	style={styles.itemList.listItem}
+						key={`${this.state.page}${i}`}>
 					<div>
 						<img 	src={el.img_url}
 								style={{maxWidth: 150}}/>
@@ -63,7 +66,7 @@ export class RecentSearchesPage extends React.Component {
 		return(
 			<div>
 				{matches}
-				<ul>
+				<ul style={styles.itemList.list}>
 					{list}
 				</ul>
 				<LoadMore loading={this.state.loading} loadMore={this.loadMore}/>

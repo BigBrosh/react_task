@@ -2,6 +2,8 @@ import React from 'react';
 
 import {RequestController} from '../controllers/RequestController';
 
+import {styles} from '../styles/mainStyles';
+
 export class FavesPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -16,7 +18,7 @@ export class FavesPage extends React.Component {
 		{
 			result = list.map(el => {
 				return (
-					<li>
+					<li style={styles.itemList.listItem}>
 						<div>
 							<img 	src={el.image}
 									style={{maxWidth: 150}}/>
@@ -27,12 +29,16 @@ export class FavesPage extends React.Component {
 					</li>
 				); 
 			});
+
+			let ul = <ul style={styles.itemList.list}>{result}</ul>;
 		}
 
 		return (
 			<div>
 				<h2>Favourites</h2>
-				<ul>{result}</ul>
+				<ul>
+					{result}
+				</ul>
 			</div>
 		);
 	}

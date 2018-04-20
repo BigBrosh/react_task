@@ -1,6 +1,6 @@
 export let styles = {
-	list: {
-		listStyleType: 'decimal'
+	commonList: {
+		listStyleType: 'unset'
 	},
 
 	buttons: {
@@ -21,6 +21,28 @@ export let styles = {
 
 		goButton: {
 			marginRight: 8
+		}
+	},
+
+	itemList: {
+		list: {
+			paddingLeft: 0,
+			display: 'flex',
+    		flexFlow: 'row wrap',
+    		justifyContent: 'space-around'
+		},
+
+		listItem: {
+			boxSizing: 'border-box',
+			listStyleType: 'none',
+			padding: 10,
+		    display: 'flex',
+		    flexBasis: 300,
+			flexDirection: 'column',
+			alignItems: 'flex-start',
+			width: 'calc(100%/4 - 10px)',
+			border: '1px solid black',
+			margin: 10
 		}
 	}
 }
