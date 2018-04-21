@@ -7,6 +7,7 @@ import {MyLocationButton} from './buttons/MyLocationButton';
 
 // controllers
 import {RequestController} from '../controllers/RequestController';
+import {ItemController} from '../controllers/ItemController';
 
 // search results
 import {RecentSearches} from './SearchResults/RecentSearches';
@@ -31,6 +32,7 @@ export class Search extends React.Component {
 		this.onInput = this.onInput.bind(this);
 
 		this.RequestController = new RequestController();
+		this.ItemController = new ItemController();
 		this.timer = 0;
 
 		this.send = this.send.bind(this);
@@ -99,7 +101,15 @@ export class Search extends React.Component {
 					data.response.application_response_code < 200)
 				{
 					this.ClearInterval('timing');
-					return data;
+
+					if (inputData.showItem === true)
+					{
+						this.ItemController.renderComponent({
+							response: data.response.listings,
+							event: inputData.numberInList,
+							numberInList: inputData.index
+						});
+					}
 				}				
 				
 				else 
@@ -114,7 +124,7 @@ export class Search extends React.Component {
 			});
 		}).catch(error => {
 			this.showError(error);
-		})
+		});
 	}
 
 	send(inputData) {

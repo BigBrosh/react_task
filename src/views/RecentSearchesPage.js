@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// controllers
+import {RequestController} from '../controllers/RequestController';
+
+// buttons
 import {LoadMore} from '../views/buttons/LoadMore';
 
+// styles
 import {styles} from '../styles/mainStyles';
 
 export class RecentSearchesPage extends React.Component {
@@ -15,14 +20,30 @@ export class RecentSearchesPage extends React.Component {
 			loading: 'done'
 		};
 
+		this.RequestController = new RequestController();
+
 		this.updateItem = this.updateItem.bind(this);
 		this.loadMore = this.loadMore.bind(this);
+		this.showItem = this.showItem.bind(this);
 	}
 
 	updateItem(data) {
 		this.setState({
 			newList: data,
 			page: this.state.page++
+		});
+	}
+
+	showItem(e) {
+		let index = e.target.parentNode.getAttribute('data-index'),
+			numberInList = e.target.getAttribute('data-id'),
+			url = this.RequestController.getFromLocal('recentSearches')[index].url;
+
+		this.props.send({
+			url: url,
+			index: index,
+			numberInList: numberInList,
+			showItem: true
 		});
 	}
 
@@ -41,7 +62,8 @@ export class RecentSearchesPage extends React.Component {
 		let data = this.state.newList || this.props.data;
 		let result = data.response.listings.map((el, i) => {
 			return (
-				<li 	data-id={i}
+				<li 	onClick={this.showItem}
+						data-id={i}
 						style={styles.itemList.listItem}
 						key={`${this.state.page}${i}`}>
 					<div>
