@@ -41,7 +41,8 @@ export class RecentSearchesPage extends React.Component {
 		let data = this.state.newList || this.props.data;
 		let result = data.response.listings.map((el, i) => {
 			return (
-				<li 	style={styles.itemList.listItem}
+				<li 	data-id={i}
+						style={styles.itemList.listItem}
 						key={`${this.state.page}${i}`}>
 					<div>
 						<img 	src={el.img_url}
@@ -66,7 +67,7 @@ export class RecentSearchesPage extends React.Component {
 		return(
 			<div>
 				{matches}
-				<ul style={styles.itemList.list}>
+				<ul style={styles.itemList.list} data-index={this.props.index}>
 					{list}
 				</ul>
 				<LoadMore loading={this.state.loading} loadMore={this.loadMore}/>

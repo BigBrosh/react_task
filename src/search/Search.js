@@ -36,6 +36,7 @@ export class Search extends React.Component {
 		this.send = this.send.bind(this);
 		this.setSelectComponent = this.setSelectComponent.bind(this);
 		this.setErrorComponent = this.setErrorComponent.bind(this);
+		this.sendByUrl = this.sendByUrl.bind(this);
 	}
 
 	onInput(e) {
@@ -82,6 +83,40 @@ export class Search extends React.Component {
 		this.timer = 0;
 	}
 
+	sendByUrl(inputData) {
+		this.timing = this.TimeOut('timing');
+
+		this.RequestController.send({
+			url: inputData.url,
+			method: 'GET',
+			headers: {
+				contentType: "text/plain"
+			}
+		}).then(response => {
+			this.RequestController.getResponse(response).then(data => 
+			{
+				if (data.response.application_response_code >= 100 &&
+					data.response.application_response_code < 200)
+				{
+					this.ClearInterval('timing');
+					return data;
+				}				
+				
+				else 
+				{
+					let error = {
+						name: data.response.application_response_code,
+						message: data.response.application_response_text
+					};
+
+					this.showError(error);
+				}
+			});
+		}).catch(error => {
+			this.showError(error);
+		})
+	}
+
 	send(inputData) {
 		// input data should contain info about search's type - action (e.g. place_name, centre_point),
 		// extra information - info, that comes after action and
@@ -110,7 +145,7 @@ export class Search extends React.Component {
 					{
 						ReactDOM.render(
 							<RecentSearchesPage data={data} 
-												send={this.send} 
+												send={this.sendByUrl} 
 												index={inputData.index} 
 												info={inputData.info} />,
 							document.getElementById('root')
@@ -170,6 +205,12 @@ export class Search extends React.Component {
 		})
 	}
 
+	showError(error) {
+		this.ClearInterval('timing');
+		throw `${error.name} : ${error.message}`;
+		return false;
+	}
+
 	catchError(error) {
 		// input data should contain object with error's name and
 		// error's message
@@ -184,7 +225,7 @@ export class Search extends React.Component {
 		switch(this.state.page)
 		{
 			case 'RecentSearches':
-				current = <RecentSearches showResults={this.send}/>;
+				current = <RecentSearches showResults={this.send} sendByUrl={this.sendByUrl} />;
 				break;
 
 			case 'SelectLocation':
