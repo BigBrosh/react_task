@@ -35,12 +35,19 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	showItem(e) {
-		let index = e.target.parentNode.getAttribute('data-index'),
-			numberInList = e.target.getAttribute('data-id'),
+		let target = e.target;
+
+		while(target.tagName !== 'LI')
+		{
+			target = target.parentNode;
+		}
+
+		let index = target.parentNode.getAttribute('data-index'),
+			numberInList = target.getAttribute('data-id'),
 			url = this.RequestController.getFromLocal('recentSearches')[index].url;
 
 		let regexp = /page=[0-9]+/,
-			page = e.target.getAttribute('data-page');
+			page = target.getAttribute('data-page');
 
 		url = url.replace(regexp, `page=${page}`);
 
