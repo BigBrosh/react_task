@@ -23,8 +23,6 @@ export class LoadMore extends React.Component {
 		{
 			if (this.state.loading != nextProps.loading)
 			{
-				console.log(`${this.state.loading} ${nextProps.loading}`);
-
 				this.setState({
 					loading: nextProps.loading === 'done' ? 'Load more...' : 'Loading...'
 				});

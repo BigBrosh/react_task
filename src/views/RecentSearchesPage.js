@@ -39,7 +39,12 @@ export class RecentSearchesPage extends React.Component {
 			numberInList = e.target.getAttribute('data-id'),
 			url = this.RequestController.getFromLocal('recentSearches')[index].url;
 
-		this.props.send({
+		let regexp = /page=[0-9]+/,
+			page = e.target.getAttribute('data-page');
+
+		url = url.replace(regexp, `page=${page}`);
+
+		this.props.sendByUrl({
 			url: url,
 			index: index,
 			numberInList: numberInList,
@@ -64,6 +69,7 @@ export class RecentSearchesPage extends React.Component {
 			return (
 				<li 	onClick={this.showItem}
 						data-id={i}
+						data-page={this.state.page}
 						style={styles.itemList.listItem}
 						key={`${this.state.page}${i}`}>
 					<div>

@@ -155,7 +155,8 @@ export class Search extends React.Component {
 					{
 						ReactDOM.render(
 							<RecentSearchesPage data={data} 
-												send={this.sendByUrl} 
+												send={this.send}
+												sendByUrl={this.sendByUrl} 
 												index={inputData.index} 
 												info={inputData.info} />,
 							document.getElementById('root')
