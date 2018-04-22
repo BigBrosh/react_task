@@ -1,4 +1,32 @@
 export class RequestController {
+	constructor() {
+		this.timer = 0;
+	}
+
+	TimeOut(name) {
+		return (
+			setInterval(( () => {
+				if (this.timer === 5)
+				{
+					let error = {
+						name: 'Timeout',
+						message: 'an error occurred while searching. Please check your network connection and try again'
+					}
+
+					this.ClearInterval(name);
+					alert(`${error.name}: ${error.message}`);
+				}
+
+				else this.timer++;
+			}), 1000)
+		);
+	}
+
+	ClearInterval(name) {
+		clearInterval(this[name]);
+		this.timer = 0;
+	}
+
 	send(properties) {
 		return (
 			fetch(properties.url, {

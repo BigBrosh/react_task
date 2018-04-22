@@ -75,7 +75,7 @@ export class Search extends React.Component {
 					this.catchError(error);
 				}
 
-				this.timer++;
+				else this.timer++;
 			}), 1000)
 		);
 	}
