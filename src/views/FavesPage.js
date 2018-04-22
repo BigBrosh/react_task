@@ -18,7 +18,7 @@ export class FavesPage extends React.Component {
 	}
 
 	showItem(e) {
-		this.timing = this.RequestController.TimeOut('timing');
+		this.RequestController.timing = this.RequestController.TimeOut('timing');
 
 		let target = e.target;
 
@@ -38,12 +38,16 @@ export class FavesPage extends React.Component {
 			}
 		}).then(response => {
 			this.RequestController.getResponse(response).then(data => {
+				this.RequestController.ClearInterval('timing');
+
 				this.ItemController.renderComponent({
 					response : data.response.listings,
 					event: target.getAttribute('data-index'),
 					numberInList: index
 				});
 			});
+		}).catch(error => {
+			alert(`${error.name}: ${error.message}`);
 		});
 	}
 
