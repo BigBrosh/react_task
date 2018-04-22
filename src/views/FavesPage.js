@@ -18,7 +18,9 @@ export class FavesPage extends React.Component {
 		{
 			result = list.map(el => {
 				return (
-					<li style={styles.itemList.listItem}>
+					<li 	data-index={el.index}
+							data-numberInList={el.numberInList}
+							style={styles.itemList.listItem}>
 						<div>
 							<img 	src={el.image}
 									style={{maxWidth: 150}}/>
@@ -29,14 +31,12 @@ export class FavesPage extends React.Component {
 					</li>
 				); 
 			});
-
-			let ul = <ul style={styles.itemList.list}>{result}</ul>;
 		}
 
 		return (
 			<div>
 				<h2>Favourites</h2>
-				<ul>
+				<ul style={styles.itemList.list}>
 					{result}
 				</ul>
 			</div>

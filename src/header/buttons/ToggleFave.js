@@ -41,6 +41,7 @@ export class ToggleFave extends React.Component {
 					price: document.getElementById('itemPrice').innerHTML,
 					place: image.getAttribute('alt'),
 					image: image.getAttribute('src'),
+					index: parent.getAttribute('data-index'),
 					uniqueKey: 'place'
 				};
 
