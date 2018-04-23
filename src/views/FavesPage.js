@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {AdditionalHeader} from '../header/AdditionalHeader';
+
 // controllers
 import {RequestController} from '../controllers/RequestController';
 import {ItemController} from '../controllers/ItemController';
@@ -77,7 +79,8 @@ export class FavesPage extends React.Component {
 
 		return (
 			<div>
-				<h2>Favourites</h2>
+				<AdditionalHeader />
+				<h2 style={styles.subHeading}>Favourites</h2>
 				<ul style={styles.itemList.list}>
 					{result}
 				</ul>

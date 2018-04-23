@@ -4,6 +4,23 @@ const colors = {
 }
 
 export let styles = {
+	header: {
+		display: 'flex',
+		justifyContent: 'flex-end'
+	},
+
+	subHeading: {
+		textAlign: 'center'
+	},
+
+	clickable: {
+		cursor: 'pointer'
+	},
+
+	h1: {
+		margin: '0px auto'
+	},
+
 	commonList: {
 		listStyleType: 'unset'
 	},
@@ -22,6 +39,10 @@ export let styles = {
 		background: 'none',
 		border: '1px solid' + colors.mainColor,
 		color: colors.mainColor
+	},
+
+	toggleFaveButton: {
+		minWidth: 38
 	},
 
 	searchWrapp: {
@@ -45,6 +66,7 @@ export let styles = {
 
 		listItem: {
 			boxSizing: 'border-box',
+			cursor: 'pointer',
 			listStyleType: 'none',
 			padding: 10,
 		    display: 'flex',

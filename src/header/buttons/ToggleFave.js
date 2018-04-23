@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {RequestController} from '../../controllers/RequestController';
+import {styles} from '../../styles/mainStyles';
 
 export class ToggleFave extends React.Component {
 	constructor(props) {
@@ -67,7 +68,8 @@ export class ToggleFave extends React.Component {
 
 	render() {
 		return(
-			<button onClick={this.toggleFave}>{this.state.availableAction}</button>
+			<button style={Object.assign({}, styles.buttons, styles.toggleFaveButton)}
+					onClick={this.toggleFave}>{this.state.availableAction}</button>
 		);
 	}
 }

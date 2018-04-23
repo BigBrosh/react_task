@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {AdditionalHeader} from '../header/AdditionalHeader';
+
 // controllers
 import {RequestController} from '../controllers/RequestController';
 
@@ -125,6 +127,7 @@ export class RecentSearchesPage extends React.Component {
 
 		return(
 			<div>
+				<AdditionalHeader />
 				{matches}
 				<ul style={styles.itemList.list} data-index={this.props.index}>
 					{list}
