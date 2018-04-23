@@ -34,7 +34,7 @@ export class RecentSearches extends React.Component {
 		{
 			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
 				return (
-					<li style={styles.list}
+					<li style={Object.assign({}, styles.li, styles.clickable)}
 						data-searchvalue={el.searchValue}
 						data-index={i}
 						key={i}

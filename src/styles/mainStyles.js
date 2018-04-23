@@ -25,6 +25,10 @@ export let styles = {
 		listStyleType: 'unset'
 	},
 
+	li: {
+		marginBottom: 4
+	},
+
 	buttons: {
 		cursor: 'pointer',
 		outline: 'none',

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {ItemController} from '../../controllers/ItemController';
+import {styles} from '../../styles/mainStyles';
 
 export class SelectLocation extends React.Component {
 	constructor(props) {
@@ -20,7 +21,10 @@ export class SelectLocation extends React.Component {
 	render() {
 		let index = this.props.response.index;
 		let list = this.props.response.list.map((el, i) => {
-			return <li key={i} id={i} onClick={this.showItem}>{el.title}</li>
+			return <li 	style={Object.assign({}, styles.li, styles.clickable)}
+						key={i} 
+						id={i} 
+						onClick={this.showItem}>{el.title}</li>
 		});
 
 		return(
