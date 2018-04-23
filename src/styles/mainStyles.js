@@ -52,7 +52,8 @@ export let styles = {
 	searchWrapp: {
 		input: {
 			marginRight: '100%',
-			marginBottom: 10
+			marginBottom: 10,
+			border: `1px solid ${colors.mainColor}`
 		},
 
 		goButton: {

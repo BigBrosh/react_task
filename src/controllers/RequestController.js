@@ -57,6 +57,9 @@ export class RequestController {
 					checker = false;
 			}
 
+			if (request.totalResults === 0)
+				checker = false;
+
 			if (checker)
 			{				
 				newList.push(request);
