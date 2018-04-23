@@ -1,3 +1,8 @@
+const colors = {
+	mainColor: '#1fcde0',
+	secondColor: '#1fb0e0'
+}
+
 export let styles = {
 	commonList: {
 		listStyleType: 'unset'
@@ -7,10 +12,16 @@ export let styles = {
 		cursor: 'pointer',
 		outline: 'none',
 		border: 'none',
-		background: '#1fcde0',
+		background: colors.mainColor,
 		color: '#fff',
 		padding: '4px 12px',
 		borderRadius: 10
+	},
+
+	favesButton: {
+		background: 'none',
+		border: '1px solid' + colors.mainColor,
+		color: colors.mainColor
 	},
 
 	searchWrapp: {
@@ -41,7 +52,7 @@ export let styles = {
 			flexDirection: 'column',
 			alignItems: 'flex-start',
 			width: 'calc(100%/4 - 10px)',
-			border: '1px solid black',
+			border: '1px solid' + colors.secondColor,
 			margin: 10
 		}
 	}

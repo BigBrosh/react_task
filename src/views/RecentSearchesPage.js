@@ -17,7 +17,8 @@ export class RecentSearchesPage extends React.Component {
 		this.state = {
 			button: 'Load more...',
 			page: 1,
-			loading: 'done'
+			loading: 'done',
+			matches: 0
 		};
 
 		this.RequestController = new RequestController();
@@ -25,12 +26,26 @@ export class RecentSearchesPage extends React.Component {
 		this.updateItem = this.updateItem.bind(this);
 		this.loadMore = this.loadMore.bind(this);
 		this.showItem = this.showItem.bind(this);
+		this.countMatches = this.countMatches.bind(this);
+	}
+
+	componentWillMount(){
+		let matches = this.countMatches(this.props.data);
+
+		this.setState({
+			matches: matches.currentMatches,
+			totalResults: matches.totalResults
+		});
 	}
 
 	updateItem(data) {
+		let matches = this.countMatches(data);
+
 		this.setState({
 			newList: data,
-			page: this.state.page++
+			page: this.state.page++,
+			matches: matches.currentMatches,
+			totalResults: matches.totalResults
 		});
 	}
 
@@ -70,6 +85,20 @@ export class RecentSearchesPage extends React.Component {
 		});
 	}
 
+	countMatches(data) {
+		let totalResults = data.response.total_results,
+			currentMatches = +data.request.num_res + +data.request.offset;
+		
+		currentMatches = currentMatches >= totalResults ? totalResults : currentMatches;
+
+		let matches = {
+			totalResults: totalResults,
+			currentMatches: currentMatches
+		};
+
+		return matches;
+	}
+
 	render() {
 		let data = this.state.newList || this.props.data;
 		let result = data.response.listings.map((el, i) => {
@@ -91,13 +120,8 @@ export class RecentSearchesPage extends React.Component {
 		});
 
 		this.list = this.list.concat(result);
-		let list = this.list;
-
-		let totalResults = data.response.total_results,
-			currentMatches = +data.request.num_res + +data.request.offset;
-		currentMatches = currentMatches >= totalResults ? totalResults : currentMatches;
-
-		let matches = <p>{currentMatches} of {totalResults}</p>;
+		let list = this.list,
+			matches = <p>{this.state.matches} of {this.state.totalResults}</p>;
 
 		return(
 			<div>
@@ -105,7 +129,7 @@ export class RecentSearchesPage extends React.Component {
 				<ul style={styles.itemList.list} data-index={this.props.index}>
 					{list}
 				</ul>
-				<LoadMore loading={this.state.loading} loadMore={this.loadMore}/>
+				<LoadMore loading={this.state.loading} loadMore={this.loadMore} amount={this.state.matches}/>
 			</div>
 		);
 	}

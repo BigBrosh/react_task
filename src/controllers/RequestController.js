@@ -25,7 +25,6 @@ export class RequestController {
 	ClearInterval(name) {
 		clearInterval(this[name]);
 		this.timer = 0;
-		console.log(this.timer);
 	}
 
 	send(properties) {
