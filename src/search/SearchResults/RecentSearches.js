@@ -2,7 +2,6 @@ import React from 'react';
 
 import {RequestController} from '../../controllers/RequestController';
 import {ItemController} from '../../controllers/ItemController';
-import {RecentSearchesPage} from '../../views/RecentSearchesPage';
 
 import {styles} from '../../styles/mainStyles';
 
@@ -29,7 +28,7 @@ export class RecentSearches extends React.Component {
 	render() {
 		let list;
 
-		if (this.RequestController.getFromLocal('recentSearches') != undefined)
+		if (this.RequestController.getFromLocal('recentSearches') !== undefined)
 		{
 			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
 				return (

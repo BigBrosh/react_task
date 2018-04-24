@@ -67,7 +67,8 @@ export class FavesPage extends React.Component {
 							data-numberinlist={el.numberInList}
 							style={styles.itemList.listItem}>
 						<div>
-							<img 	src={el.image}
+							<img 	alt={el.place}
+									src={el.image}
 									style={{maxWidth: 150}}/>
 						</div>
 						<div>
