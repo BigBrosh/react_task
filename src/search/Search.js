@@ -259,10 +259,8 @@ export class Search extends React.Component {
 							style={styles.searchWrapp.input}
 							type="text"
 							value={this.state.inputValue}></input>
-					<GoButton 	styles={Object.assign({}, styles.buttons, styles.searchWrapp.goButton)}
-								onClick={this.send} />
-					<MyLocationButton 	styles={styles.buttons}
-										onClick={this.send} />
+					<GoButton onClick={this.send} />
+					<MyLocationButton onClick={this.send} />
 				</div>
 				{current}
 			</div>

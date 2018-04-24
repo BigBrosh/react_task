@@ -33,7 +33,7 @@ export class LoadMore extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (this.props && nextProps)
 		{
-			if (this.state.loading != nextProps.loading)
+			if (this.state.loading !== nextProps.loading)
 			{
 				this.setState({
 					loading: nextProps.loading === 'done' ? 'Load more...' : 'Loading...'

@@ -44,7 +44,7 @@ export class RecentSearchesPage extends React.Component {
 
 		this.setState({
 			newList: data,
-			page: this.state.page++,
+			page: this.state.page + 1,
 			matches: matches.currentMatches,
 			totalResults: matches.totalResults
 		});
@@ -75,10 +75,10 @@ export class RecentSearchesPage extends React.Component {
 		});
 	}
 
-	loadMore() {
+	loadMore() {	
 		this.props.send({
 			action: 'place_name',
-			page: ++this.state.page,
+			page: this.state.page + 1,
 			index: this.props.index,
 			info: this.props.info,
 			onSuccess: this.updateItem,
@@ -110,7 +110,8 @@ export class RecentSearchesPage extends React.Component {
 						style={styles.itemList.listItem}
 						key={`${this.state.page}${i}`}>
 					<div>
-						<img 	src={el.img_url}
+						<img 	alt={el.title}
+								src={el.img_url}
 								style={{maxWidth: 150}}/>
 					</div>
 					<div>

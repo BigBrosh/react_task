@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {styles} from '../../styles/mainStyles';
+
 export class MyLocationButton extends React.Component {
 	constructor(props) {
 		super(props);
@@ -26,8 +28,8 @@ export class MyLocationButton extends React.Component {
 
 	render() {
 		return(
-			<button 	style={this.props.styles}
-						onClick={this.click}>My location</button>
+			<button style={styles.buttons}
+					onClick={this.click}>My location</button>
 		);
 	}
 }

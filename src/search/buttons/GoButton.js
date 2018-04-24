@@ -33,7 +33,7 @@ export class GoButton extends React.Component {
 
 	render() {
 		return(
-			<button style={this.props.styles} 
+			<button style={Object.assign({}, styles.buttons, styles.searchWrapp.goButton)}
 					onClick={this.click}>Go</button>
 		);
 	}

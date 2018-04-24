@@ -20,7 +20,7 @@ export class ToggleFave extends React.Component {
 		if (favList)
 		{
 			favList.forEach(el => {
-				if (el.place == this.props.place)
+				if (el.place === this.props.place)
 				{
 					this.setState({
 						availableAction: '-'

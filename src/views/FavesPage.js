@@ -24,7 +24,7 @@ export class FavesPage extends React.Component {
 
 		let target = e.target;
 
-		while (target.tagName != 'LI')
+		while (target.tagName !== 'LI')
 		{
 			target = target.parentNode;
 		}
