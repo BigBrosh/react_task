@@ -134,7 +134,7 @@ export class Search extends React.Component {
 		// number of page (1 by default)
 
 		let extraData = inputData.info,
-			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy' + '&page=' + (inputData.page || 1) + '&' + inputData.action + '=' + extraData.toLowerCase();
+			url = 'https://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=' + (inputData.page || 1) + '&' + inputData.action + '=' + extraData.toLowerCase();
 
 		this.timing = this.TimeOut('timing');
 
@@ -183,7 +183,7 @@ export class Search extends React.Component {
 					})
 				}
 
-				else if (inputData.action == 'centre_point' && data.response.total_results === 0)
+				else if (inputData.action === 'centre_point' && data.response.total_results === 0)
 				{					
 					let error = {
 						name: 'Location not matched',
@@ -220,8 +220,7 @@ export class Search extends React.Component {
 
 	showError(error) {
 		this.ClearInterval('timing');
-		throw `${error.name} : ${error.message}`;
-		return false;
+		throw new Error(`${error.name} : ${error.message}`);
 	}
 
 	catchError(error) {
@@ -230,6 +229,7 @@ export class Search extends React.Component {
 
 		this.ClearInterval('timing');
 		this.setErrorComponent(error);
+		this.showError(error);
 		this.RequestController.catchError(error);
 	}
 

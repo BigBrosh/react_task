@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import {RequestController} from '../../controllers/RequestController';
 import {ItemController} from '../../controllers/ItemController';

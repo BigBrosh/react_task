@@ -61,9 +61,10 @@ export class FavesPage extends React.Component {
 		{
 			result = list.map(el => {
 				return (
-					<li 	onClick={this.showItem}
+					<li 	key={`${el.numberInList}${el.index}`}
+							onClick={this.showItem}
 							data-index={el.index}
-							data-numberInList={el.numberInList}
+							data-numberinlist={el.numberInList}
 							style={styles.itemList.listItem}>
 						<div>
 							<img 	src={el.image}
