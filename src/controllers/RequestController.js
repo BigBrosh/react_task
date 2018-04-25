@@ -42,7 +42,9 @@ export class RequestController {
 		// input data should contain localStorage key's name and
 		// object with key parameters
 
-		if (localStorage.getItem(place) === undefined || localStorage.getItem(place).length === 0)
+		if (localStorage.getItem(place) === null ||
+			localStorage.getItem(place) === undefined ||
+			localStorage.getItem(place).length === 0)
 		{
 			let list = [request];
 			localStorage.setItem(place, JSON.stringify(list));
