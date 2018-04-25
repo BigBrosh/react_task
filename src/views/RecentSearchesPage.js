@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AdditionalHeader} from '../header/AdditionalHeader';
+import {Header} from '../header/Header';
 
 // controllers
 import {RequestController} from '../controllers/RequestController';
@@ -127,7 +127,7 @@ export class RecentSearchesPage extends React.Component {
 
 		return(
 			<div>
-				<AdditionalHeader />
+				<Header.MainHeader />
 				{matches}
 				<ul style={styles.itemList.list} data-index={this.props.index}>
 					{list}

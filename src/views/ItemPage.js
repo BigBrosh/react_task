@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ItemHeader} from '../header/ItemHeader'
+import {Header} from '../header/Header'
 
 export class ItemPage extends React.Component {
 	render() {
@@ -9,7 +9,7 @@ export class ItemPage extends React.Component {
 			<div 	id='item'
 					data-index={this.props.number}	
 					data-numberinlist={this.props.numberInList}>
-				<ItemHeader place={item.title}/>
+				<Header.ItemHeader place={item.title}/>
 				<p id='itemPrice'>{item.price_formatted}</p>
 				<p>{item.title}</p>
 				<img 	id='item_image'
