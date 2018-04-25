@@ -101,6 +101,7 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	render() {
+		console.log(1);
 		let data = this.state.newList || this.props.data;
 		let result = data.response.listings.map((el, i) => {
 			return (
@@ -124,6 +125,7 @@ export class RecentSearchesPage extends React.Component {
 		this.list = this.list.concat(result);
 		let list = this.list,
 			matches = <p>{this.state.matches} of {this.state.totalResults}</p>;
+
 
 		return(
 			<div>

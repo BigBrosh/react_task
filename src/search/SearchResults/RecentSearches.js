@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {RequestController} from '../../controllers/RequestController';
 import {ItemController} from '../../controllers/ItemController';
@@ -31,12 +32,13 @@ export class RecentSearches extends React.Component {
 		if (this.RequestController.getFromLocal('recentSearches') !== undefined)
 		{
 			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
+				let url = `/items/searchval=${el.searchValue}&ind=${i}`;
 				return (
-					<li style={Object.assign({}, styles.li, styles.clickable)}
-						data-searchvalue={el.searchValue}
-						data-index={i}
-						key={i}
-						onClick={this.showItems}>{el.searchValue} ({el.totalResults})</li>
+					<li style={Object.assign({}, styles.li, styles.clickable)} key={i}>
+						<Link to={url}>
+							{el.searchValue} ({el.totalResults})
+						</Link>
+					</li>
 				);
 			});
 		}

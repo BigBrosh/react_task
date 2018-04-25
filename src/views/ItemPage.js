@@ -5,6 +5,7 @@ import {Header} from '../header/Header'
 export class ItemPage extends React.Component {
 	render() {
 		let item = this.props.list[this.props.number];
+		
 		return (
 			<div 	id='item'
 					data-index={this.props.number}	

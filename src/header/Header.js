@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {SearchPage} from '../views/SearchPage';
 
@@ -20,21 +20,23 @@ export const Header = {
 	MainHeader: () =>
 		<header style={styles.header}>
 			<h1 style={Object.assign({}, styles.h1, styles.clickable)}>
-				<Link to='/home'>PropertyCross</Link></h1>
+				<Link to='/'>PropertyCross</Link></h1>
 			<Link to='favourites'><FavesButton /></Link>
 		</header>,
 
 	AdditionalHeader: () => 
 			<header style={styles.header}>
 				<h1 style={Object.assign({}, styles.h1, styles.clickable)}>
-					<Link to='/home'>PropertyCross</Link>
+					<Link to='/'>PropertyCross</Link>
 				</h1>
 			</header>,
 
 	ItemHeader: props =>
 		<header style={styles.header}>
-			<h1 style={Object.assign({}, styles.h1, styles.clickable)}
-				onClick={HeaderController.renderMainPage}>Property Details</h1>
+			<h1 style={Object.assign({}, styles.h1, styles.clickable)}>
+				<Link to='/'>PropertyCross</Link>
+			</h1>
+
 			<ToggleFave place={props.place}/>
 		</header>
 }
