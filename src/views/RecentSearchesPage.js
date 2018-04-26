@@ -2,8 +2,9 @@ import React from 'react';
 
 import {Header} from '../header/Header';
 
-// controllers
+// controllers and helpers
 import {RequestController} from '../controllers/RequestController';
+import {DataFromLink} from '../helpers/DataFromLink';
 
 // buttons
 import {LoadMore} from '../views/buttons/LoadMore';
@@ -17,7 +18,7 @@ export class RecentSearchesPage extends React.Component {
 		this.list = [];
 		this.state = {
 			button: 'Load more...',
-			page: 1,
+			page: 0,
 			loading: 'done',
 			matches: 0
 		};
@@ -31,13 +32,37 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	componentWillMount(){
-		console.log(1);
-		let matches = this.countMatches(this.props.data);
+		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'searchval'),
+			id = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind'),
+			url = this.RequestController.getFromLocal('recentSearches')[id].url;
 
-		this.setState({
-			matches: matches.currentMatches,
-			totalResults: matches.totalResults
+		this.RequestController.send({
+			url: url,
+			method: 'GET',
+			headers: {
+				contentType: "text/plain"
+			}
+		}).then(response => {
+			this.RequestController.getResponse(response).then(data => {
+			let matches = this.countMatches(data);
+
+			this.setState({
+				newList: data,
+				matches: matches.currentMatches,
+				totalResults: matches.totalResults,
+				some: 100000
+			});
+		})}).catch(error => {
+			this.RequestController.catchError(error);
 		});
+
+
+		// let matches = this.countMatches(this.props.data);
+
+		// this.setState({
+		// 	matches: matches.currentMatches,
+		// 	totalResults: matches.totalResults
+		// });
 	}
 
 	updateItem(data) {
@@ -102,7 +127,10 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	render() {
-		let data = this.state.newList || this.props.data;
+		if(!this.state.some) return false;
+
+		console.log(this.state.some);
+		let data = this.state.newList;
 		let result = data.response.listings.map((el, i) => {
 			return (
 				<li 	onClick={this.showItem}
