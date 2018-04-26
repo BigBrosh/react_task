@@ -31,6 +31,7 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	componentWillMount(){
+		console.log(1);
 		let matches = this.countMatches(this.props.data);
 
 		this.setState({
@@ -101,7 +102,6 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	render() {
-		console.log(1);
 		let data = this.state.newList || this.props.data;
 		let result = data.response.listings.map((el, i) => {
 			return (

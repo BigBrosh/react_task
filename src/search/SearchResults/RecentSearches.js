@@ -32,7 +32,7 @@ export class RecentSearches extends React.Component {
 		if (this.RequestController.getFromLocal('recentSearches') !== undefined)
 		{
 			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
-				let url = `/items/searchval=${el.searchValue}&ind=${i}`;
+				let url = `/items/recent/searchval=${el.searchValue}&ind=${i}`;
 				return (
 					<li style={Object.assign({}, styles.li, styles.clickable)} key={i}>
 						<Link to={url}>

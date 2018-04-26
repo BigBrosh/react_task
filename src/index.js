@@ -24,7 +24,7 @@ class Main extends React.Component {
 				<Switch>
 					<Route exact path="/" component={SearchPage} />
 					<Route path="/favourites" component={FavesPage} />
-					<Route path="/items/:" component={RecentSearchesPage} />
+					<Route path="/items/" component={RecentSearchesPage} />
 				</Switch>
 			</Router>
 		)
