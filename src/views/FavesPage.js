@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 import {Header} from '../header/Header';
 
@@ -15,42 +16,6 @@ export class FavesPage extends React.Component {
 
 		this.RequestController = new RequestController();
 		this.ItemController = new ItemController();
-
-		this.showItem = this.showItem.bind(this);
-	}
-
-	showItem(e) {
-		this.RequestController.timing = this.RequestController.TimeOut('timing');
-
-		let target = e.target;
-
-		while (target.tagName !== 'LI')
-		{
-			target = target.parentNode;
-		}
-
-		let index = target.getAttribute('data-numberinlist'),
-			url = this.RequestController.getFromLocal('recentSearches')[index].url;
-
-		this.RequestController.send({
-			url: url,
-			method: 'GET',
-			headers: {
-				contentType: "text/plain"
-			}
-		}).then(response => {
-			this.RequestController.getResponse(response).then(data => {
-				this.RequestController.ClearInterval('timing');
-
-				this.ItemController.renderComponent({
-					response : data.response.listings,
-					event: target.getAttribute('data-index'),
-					numberInList: index
-				});
-			});
-		}).catch(error => {
-			alert(`${error.name}: ${error.message}`);
-		});
 	}
 
 	render() {
@@ -62,7 +27,6 @@ export class FavesPage extends React.Component {
 			result = list.map(el => {
 				return (
 					<li 	key={`${el.numberInList}${el.index}`}
-							onClick={this.showItem}
 							data-index={el.index}
 							data-numberinlist={el.numberInList}
 							style={styles.itemList.listItem}>
