@@ -5,22 +5,27 @@ import {Header} from '../header/Header'
 // controllers and helpers
 import {RequestController} from '../controllers/RequestController';
 import {DataFromLink} from '../helpers/DataFromLink.js';
+import {CustomLink} from '../helpers/CustomLink';
 
 export class ItemPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			index: 0
+			list: ''
 		};
+		
 		this.RequestController = new RequestController();
 	}
 
 	componentWillMount(){
-		let ind = DataFromLink.extra(this.props.history.location.pathname, 'item', 'ind'),
+		let sv = DataFromLink.extra(this.props.history.location.pathname, 'item', 'sv'),
 			page = DataFromLink.extra(this.props.history.location.pathname, 'item', 'pg'),
-			url = this.RequestController.getFromLocal('recentSearches')[ind].url;
+			url = CustomLink.customize({
+				place: sv,
+				page: page
+			});
 
-		url = url.replace(/page=[0-9]+/, `page=${page}`);
+		console.log(url);
 
 		this.RequestController.send({
 			url: url,
@@ -32,7 +37,6 @@ export class ItemPage extends React.Component {
 			this.RequestController.getResponse(response).then(data => {
 				this.setState({
 					list: data,
-					index: ind,
 					number: DataFromLink.extra(this.props.history.location.pathname, 'item', 'num')
 				});
 			})
@@ -47,7 +51,6 @@ export class ItemPage extends React.Component {
 		let item = this.state.list.response.listings[this.state.number];		
 		return (
 			<div 	id='item'
-					data-index={this.state.index}	
 					data-numberinlist={this.state.number}>
 				<Header.ItemHeader place={item.title}/>
 				<p id='itemPrice'>{item.price_formatted}</p>

@@ -5,7 +5,8 @@ import {Header} from '../header/Header';
 
 // controllers and helpers
 import {RequestController} from '../controllers/RequestController';
-import {DataFromLink} from '../helpers/DataFromLink.js';
+import {DataFromLink} from '../helpers/DataFromLink';
+import {CustomLink} from '../helpers/CustomLink';
 
 // buttons
 import {LoadMore} from '../views/buttons/LoadMore';
@@ -19,7 +20,7 @@ export class RecentSearchesPage extends React.Component {
 		this.list = [];
 		this.state = {
 			button: 'Load more...',
-			page: 2,
+			page: 1,
 			loading: 'done',
 			matches: 0
 		};
@@ -33,8 +34,10 @@ export class RecentSearchesPage extends React.Component {
 
 	componentWillMount(){
 		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
-			id = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind'),
-			url = this.RequestController.getFromLocal('recentSearches')[id].url;
+			url = CustomLink.customize({
+				place: sv,
+				page: this.state.page
+			});
 
 		this.RequestController.send({
 			url: url,
@@ -56,7 +59,8 @@ export class RecentSearchesPage extends React.Component {
 				this.setState({
 					newList: data,
 					matches: matches.currentMatches,
-					totalResults: matches.totalResults
+					totalResults: matches.totalResults,
+					page: this.state.page + 1
 				});
 			})
 		}).catch(error => {
@@ -76,10 +80,10 @@ export class RecentSearchesPage extends React.Component {
 
 	loadMore() {
 		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
-			id = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind'),
-			url = this.RequestController.getFromLocal('recentSearches')[id].url;
-
-		url = url.replace(/page=[0-9]+/, `page=${this.state.page}`);
+			url = CustomLink.customize({
+				place: sv,
+				page: this.state.page
+			});
 
 		this.RequestController.send({
 			url: url,
@@ -120,13 +124,13 @@ export class RecentSearchesPage extends React.Component {
 		if(!this.state.newList) return false;
 
 		let data = this.state.newList,
-			index = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind');
+			sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv');
 
 		let result = data.response.listings.map((el, i) => {
 			let page = Math.floor(i/20);
 			page = page >= 1 ? page : 1;
 
-			let url = `/item/ind=${index}&pg=${page}&num=${i}`;
+			let url = `/item/sv=${sv}&pg=${page}&num=${i}`;
 			return (
 				<li 	data-id={i}
 							data-page={this.state.page}

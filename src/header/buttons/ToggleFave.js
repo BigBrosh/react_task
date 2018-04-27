@@ -1,7 +1,14 @@
 import React from 'react';
 
+// controllers and helpers
 import {RequestController} from '../../controllers/RequestController';
+import {DataFromLink} from '../../helpers/DataFromLink.js';
+import {CustomLink} from '../../helpers/CustomLink';
+import createBrowserHistory from 'history/createBrowserHistory';
+
 import {styles} from '../../styles/mainStyles';
+
+const history = createBrowserHistory();
 
 export class ToggleFave extends React.Component {
 	constructor(props) {
@@ -38,12 +45,14 @@ export class ToggleFave extends React.Component {
 		if (this.state.availableAction === '+')
 		{
 			let	newFave = {
-					url: this.RequestController.getFromLocal('recentSearches')[parent.getAttribute('data-index')].url,
+					url: CustomLink.customize({
+						place: DataFromLink.extra(history.location.pathname, 'item', 'sv'),
+						page: DataFromLink.extra(history.location.pathname, 'item', 'pg')
+					}),
 					numberInList: parent.getAttribute('data-numberinlist'),
 					price: document.getElementById('itemPrice').innerHTML,
 					place: image.getAttribute('alt'),
 					image: image.getAttribute('src'),
-					index: parent.getAttribute('data-index'),
 					uniqueKey: 'place'
 				};
 

@@ -175,7 +175,8 @@ export class SearchPage extends React.Component {
 
 					this.setSelectComponent({
 						list: data.response.listings,
-						index: inputData.index
+						index: inputData.index,
+						info: inputData.info
 					});
 
 					this.RequestController.sendToLocal('recentSearches', {
