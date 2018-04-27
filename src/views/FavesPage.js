@@ -19,10 +19,6 @@ export class FavesPage extends React.Component {
 		this.showItem = this.showItem.bind(this);
 	}
 
-	 componentWillReceiveProps(nextProps) {
-		const locationChanged = nextProps.location !== this.props.location;
-	}
-
 	showItem(e) {
 		this.RequestController.timing = this.RequestController.TimeOut('timing');
 

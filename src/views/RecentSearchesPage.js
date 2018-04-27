@@ -4,7 +4,7 @@ import {Header} from '../header/Header';
 
 // controllers and helpers
 import {RequestController} from '../controllers/RequestController';
-import {DataFromLink} from '../helpers/DataFromLink';
+import {DataFromLink} from '../helpers/DataFromLink.js';
 
 // buttons
 import {LoadMore} from '../views/buttons/LoadMore';
@@ -44,15 +44,22 @@ export class RecentSearchesPage extends React.Component {
 			}
 		}).then(response => {
 			this.RequestController.getResponse(response).then(data => {
-			let matches = this.countMatches(data);
+				if (DataFromLink.find(url, 'place_name') !== sv)
+				{
+					this.RequestController.catchError({
+						name: 'Error',
+						message: 'page not found'
+					});					
+				}
 
-			this.setState({
-				newList: data,
-				matches: matches.currentMatches,
-				totalResults: matches.totalResults,
-				some: 100000
-			});
-		})}).catch(error => {
+				let matches = this.countMatches(data);
+				this.setState({
+					newList: data,
+					matches: matches.currentMatches,
+					totalResults: matches.totalResults
+				});
+			})
+		}).catch(error => {
 			this.RequestController.catchError(error);
 		});
 
@@ -127,9 +134,8 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	render() {
-		if(!this.state.some) return false;
+		if(!this.state.newList) return false;
 
-		console.log(this.state.some);
 		let data = this.state.newList;
 		let result = data.response.listings.map((el, i) => {
 			return (
