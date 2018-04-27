@@ -34,10 +34,11 @@ export class ToggleFave extends React.Component {
 		let parent = document.getElementById('item'),
 			image = document.getElementById('item_image');
 
+
 		if (this.state.availableAction === '+')
-		{			
+		{
 			let	newFave = {
-					url: this.RequestController.getFromLocal('recentSearches')[parent.getAttribute('data-numberinlist')].url,
+					url: this.RequestController.getFromLocal('recentSearches')[parent.getAttribute('data-index')].url,
 					numberInList: parent.getAttribute('data-numberinlist'),
 					price: document.getElementById('itemPrice').innerHTML,
 					place: image.getAttribute('alt'),

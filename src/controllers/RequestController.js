@@ -74,7 +74,10 @@ export class RequestController {
 		// input data contains localStorages key's name
 
 		if (localStorage.getItem(place))
-			return JSON.parse(localStorage.getItem(place));
+		{	
+			let a = JSON.parse(localStorage.getItem(place));
+			return a;
+		}
 	}
 
 	removeFromLocal(data) {
