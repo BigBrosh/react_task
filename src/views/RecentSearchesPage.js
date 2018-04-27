@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {Header} from '../header/Header';
 
@@ -27,7 +28,6 @@ export class RecentSearchesPage extends React.Component {
 
 		this.updateItem = this.updateItem.bind(this);
 		this.loadMore = this.loadMore.bind(this);
-		this.showItem = this.showItem.bind(this);
 		this.countMatches = this.countMatches.bind(this);
 	}
 
@@ -75,31 +75,6 @@ export class RecentSearchesPage extends React.Component {
 		});
 	}
 
-	showItem(e) {
-		let target = e.target;
-
-		while(target.tagName !== 'LI')
-		{
-			target = target.parentNode;
-		}
-
-		let index = target.parentNode.getAttribute('data-index'),
-			numberInList = target.getAttribute('data-id'),
-			url = this.RequestController.getFromLocal('recentSearches')[index].url;
-
-		let regexp = /page=[0-9]+/,
-			page = target.getAttribute('data-page');
-
-		url = url.replace(regexp, `page=${page}`);
-
-		this.props.sendByUrl({
-			url: url,
-			index: index,
-			numberInList: numberInList,
-			showItem: true
-		});
-	}
-
 	loadMore() {	
 		this.props.send({
 			action: 'place_name',
@@ -128,22 +103,29 @@ export class RecentSearchesPage extends React.Component {
 	render() {
 		if(!this.state.newList) return false;
 
-		let data = this.state.newList;
+		let data = this.state.newList,
+			index = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind');
+
 		let result = data.response.listings.map((el, i) => {
+			let page = Math.floor(i/20);
+			page = page >= 1 ? page : 1;
+
+			let url = `/item/ind=${index}&pg=${page}&num=${i}`;
 			return (
-				<li 	onClick={this.showItem}
-						data-id={i}
-						data-page={this.state.page}
-						style={styles.itemList.listItem}
-						key={`${this.state.page}${i}`}>
-					<div>
-						<img 	alt={el.title}
-								src={el.img_url}
-								style={{maxWidth: 150}}/>
-					</div>
-					<div>
-						<p>{el.price_formatted}<br/>{el.title}</p>
-					</div>
+				<li 	data-id={i}
+							data-page={this.state.page}
+							style={styles.itemList.listItem}
+							key={`${this.state.page}${i}`}>
+					<Link to={url}>
+						<div>
+							<img 	alt={el.title}
+									src={el.img_url}
+									style={{maxWidth: 150}}/>
+						</div>
+						<div>
+							<p>{el.price_formatted}<br/>{el.title}</p>
+						</div>
+					</Link>
 				</li>
 			);
 		});
