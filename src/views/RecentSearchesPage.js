@@ -32,7 +32,7 @@ export class RecentSearchesPage extends React.Component {
 	}
 
 	componentWillMount(){
-		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'searchval'),
+		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
 			id = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind'),
 			url = this.RequestController.getFromLocal('recentSearches')[id].url;
 

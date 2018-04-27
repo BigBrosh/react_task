@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import {RecentSearchesPage} from './views/RecentSearchesPage';
 import {SearchPage} from './views/SearchPage';
 import {FavesPage} from './views/FavesPage';
+import {ItemPage} from './views/ItemPage';
 
 const history = createBrowserHistory();
 
@@ -25,6 +26,7 @@ class Main extends React.Component {
 					<Route exact path="/" component={SearchPage} />
 					<Route path="/favourites" component={FavesPage} />
 					<Route path="/items/" component={RecentSearchesPage} />
+					<Route path="/item/" component={ItemPage} />
 				</Switch>
 			</Router>
 		)
