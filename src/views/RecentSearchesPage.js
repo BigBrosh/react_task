@@ -26,7 +26,6 @@ export class RecentSearchesPage extends React.Component {
 
 		this.RequestController = new RequestController();
 
-		this.updateItem = this.updateItem.bind(this);
 		this.loadMore = this.loadMore.bind(this);
 		this.countMatches = this.countMatches.bind(this);
 	}
@@ -75,14 +74,23 @@ export class RecentSearchesPage extends React.Component {
 		});
 	}
 
-	loadMore() {	
-		this.props.send({
-			action: 'place_name',
-			page: this.state.page + 1,
-			index: this.props.index,
-			info: this.props.info,
-			onSuccess: this.updateItem,
-			getResponse: true
+	loadMore() {
+		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
+			id = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind'),
+			url = this.RequestController.getFromLocal('recentSearches')[id].url;
+
+		this.RequestController.send({
+			url: url,
+			method: 'GET',
+			headers: {
+				contentType: "text/plain"
+			}
+		}).then(response => {
+			this.RequestController.getResponse(response).then(data => {
+				this.updateItem(data);	
+			})
+		}).catch(error => {
+			this.RequestController.catchError(error);
 		});
 	}
 
