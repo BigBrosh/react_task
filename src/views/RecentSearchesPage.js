@@ -62,14 +62,6 @@ export class RecentSearchesPage extends React.Component {
 		}).catch(error => {
 			this.RequestController.catchError(error);
 		});
-
-
-		// let matches = this.countMatches(this.props.data);
-
-		// this.setState({
-		// 	matches: matches.currentMatches,
-		// 	totalResults: matches.totalResults
-		// });
 	}
 
 	updateItem(data) {

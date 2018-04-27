@@ -21,7 +21,7 @@ export const Header = {
 		<header style={styles.header}>
 			<h1 style={Object.assign({}, styles.h1, styles.clickable)}>
 				<Link to='/'>PropertyCross</Link></h1>
-			<Link to='favourites'><FavesButton /></Link>
+			<Link to='/favourites'><FavesButton /></Link>
 		</header>,
 
 	AdditionalHeader: () => 
