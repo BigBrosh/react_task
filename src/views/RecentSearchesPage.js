@@ -19,13 +19,14 @@ export class RecentSearchesPage extends React.Component {
 		this.list = [];
 		this.state = {
 			button: 'Load more...',
-			page: 0,
+			page: 2,
 			loading: 'done',
 			matches: 0
 		};
 
 		this.RequestController = new RequestController();
 
+		this.updateItem = this.updateItem.bind(this);
 		this.loadMore = this.loadMore.bind(this);
 		this.countMatches = this.countMatches.bind(this);
 	}
@@ -65,7 +66,6 @@ export class RecentSearchesPage extends React.Component {
 
 	updateItem(data) {
 		let matches = this.countMatches(data);
-
 		this.setState({
 			newList: data,
 			page: this.state.page + 1,
@@ -79,6 +79,8 @@ export class RecentSearchesPage extends React.Component {
 			id = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'ind'),
 			url = this.RequestController.getFromLocal('recentSearches')[id].url;
 
+		url = url.replace(/page=[0-9]+/, `page=${this.state.page}`);
+
 		this.RequestController.send({
 			url: url,
 			method: 'GET',
@@ -87,7 +89,14 @@ export class RecentSearchesPage extends React.Component {
 			}
 		}).then(response => {
 			this.RequestController.getResponse(response).then(data => {
-				this.updateItem(data);	
+				let matches = this.countMatches(data);
+
+				this.setState({
+					newList: data,
+					page: this.state.page + 1,
+					matches: matches.currentMatches,
+					totalResults: matches.totalResults
+				});
 			})
 		}).catch(error => {
 			this.RequestController.catchError(error);
@@ -99,7 +108,6 @@ export class RecentSearchesPage extends React.Component {
 			currentMatches = +data.request.num_res + +data.request.offset;
 		
 		currentMatches = currentMatches >= totalResults ? totalResults : currentMatches;
-
 		let matches = {
 			totalResults: totalResults,
 			currentMatches: currentMatches
