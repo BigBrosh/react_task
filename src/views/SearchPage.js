@@ -232,7 +232,6 @@ export class SearchPage extends React.Component {
 		this.ClearInterval('timing');
 		this.setErrorComponent(error);
 		this.showError(error);
-		this.RequestController.catchError(error);
 	}
 
 	render() {

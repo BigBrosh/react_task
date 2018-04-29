@@ -6,7 +6,6 @@ export class MyLocationButton extends React.Component {
 	constructor(props) {
 		super(props);
 		this.click = this.click.bind(this);
-		this.click = this.click.bind(this);
 		this.showPosition = this.showPosition.bind(this);
 	}
 
