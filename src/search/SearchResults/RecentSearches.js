@@ -2,16 +2,14 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import {RequestController} from '../../controllers/RequestController';
-import {ItemController} from '../../controllers/ItemController';
 
 import {styles} from '../../styles/mainStyles';
 
 export class RecentSearches extends React.Component {
 	constructor(props){
 		super(props);
-		this.RequestController = new RequestController();
-		this.ItemController = new ItemController();
 
+		this.RequestController = new RequestController();
 		this.showItems = this.showItems.bind(this);
 	}
 

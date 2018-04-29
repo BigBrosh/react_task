@@ -10,7 +10,6 @@ import {MyLocationButton} from '../search/buttons/MyLocationButton';
 
 // controllers
 import {RequestController} from '../controllers/RequestController';
-import {ItemController} from '../controllers/ItemController';
 
 // search results
 import {RecentSearches} from '../search/SearchResults/RecentSearches';
@@ -35,7 +34,6 @@ export class SearchPage extends React.Component {
 		this.onInput = this.onInput.bind(this);
 
 		this.RequestController = new RequestController();
-		this.ItemController = new ItemController();
 		this.timer = 0;
 
 		this.send = this.send.bind(this);

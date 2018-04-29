@@ -2,12 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import {Header} from '../header/Header';
-
-// controllers
 import {RequestController} from '../controllers/RequestController';
-import {ItemController} from '../controllers/ItemController';
-
-// styles
 import {styles} from '../styles/mainStyles';
 
 export class FavesPage extends React.Component {
@@ -15,7 +10,6 @@ export class FavesPage extends React.Component {
 		super(props);
 
 		this.RequestController = new RequestController();
-		this.ItemController = new ItemController();
 	}
 
 	render() {
