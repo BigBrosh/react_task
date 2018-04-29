@@ -18,8 +18,6 @@ class Main extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
-
 		return(
 			<Router history={this.props.history}>
 				<Switch>

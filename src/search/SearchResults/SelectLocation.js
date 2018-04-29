@@ -2,7 +2,6 @@ import React from 'react';
 
 import {Link} from 'react-router-dom';
 
-import {ItemController} from '../../controllers/ItemController';
 import {styles} from '../../styles/mainStyles';
 
 export class SelectLocation extends React.Component {

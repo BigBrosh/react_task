@@ -1,14 +1,7 @@
 import React from 'react';
 
-// controllers and helpers
 import {RequestController} from '../../controllers/RequestController';
-import {DataFromLink} from '../../helpers/DataFromLink.js';
-import {CustomLink} from '../../helpers/CustomLink';
-import createBrowserHistory from 'history/createBrowserHistory';
-
 import {styles} from '../../styles/mainStyles';
-
-const history = createBrowserHistory();
 
 export class ToggleFave extends React.Component {
 	constructor(props) {
@@ -38,10 +31,6 @@ export class ToggleFave extends React.Component {
 	}
 
 	toggleFave() {
-		let parent = document.getElementById('item'),
-			image = document.getElementById('item_image');
-
-
 		if (this.state.availableAction === '+')
 		{
 			let	newFave = {

@@ -6,8 +6,6 @@ import {Header} from '../header/Header';
 // controllers
 import {RequestController} from '../controllers/RequestController';
 import {ItemController} from '../controllers/ItemController';
-import {DataFromLink} from '../helpers/DataFromLink.js';
-import {CustomLink} from '../helpers/CustomLink';
 
 // styles
 import {styles} from '../styles/mainStyles';
