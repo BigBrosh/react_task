@@ -34,8 +34,9 @@ export class RecentSearches extends React.Component {
 			list = this.RequestController.getFromLocal('recentSearches').map((el, i) => {
 				let url = `/items/recent/sv=${el.searchValue}`;
 				return (
-					<li style={Object.assign({}, styles.li, styles.clickable)} key={i}>
-						<Link to={url}>
+					<li style={styles.li} key={i}>
+						<Link 	style={styles.clickable}
+								to={url}>
 							{el.searchValue} ({el.totalResults})
 						</Link>
 					</li>

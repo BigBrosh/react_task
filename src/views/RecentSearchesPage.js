@@ -133,10 +133,11 @@ export class RecentSearchesPage extends React.Component {
 			let url = `/item/sv=${sv}&pg=${page}&num=${i}`;
 			return (
 				<li 	data-id={i}
-							data-page={this.state.page}
-							style={styles.itemList.listItem}
-							key={`${this.state.page}${i}`}>
-					<Link to={url}>
+						data-page={this.state.page}
+						style={styles.itemList.listItem}
+						key={`${this.state.page}${i}`}>
+					<Link 	style={styles.clickable}
+							to={url}>
 						<div>
 							<img 	alt={el.title}
 									src={el.img_url}

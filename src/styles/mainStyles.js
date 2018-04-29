@@ -14,11 +14,14 @@ export let styles = {
 	},
 
 	clickable: {
-		cursor: 'pointer'
+		cursor: 'pointer',
+		textDecoration: 'none',
+		color: 'inherit'
 	},
 
 	h1: {
-		margin: '0px auto'
+		margin: '0px auto',
+		color: '#000'
 	},
 
 	commonList: {

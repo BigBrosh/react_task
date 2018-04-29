@@ -32,7 +32,8 @@ export class FavesPage extends React.Component {
 				return (
 					<li 	key={i}
 							style={styles.itemList.listItem}>
-						<Link to={`/${url}`}>
+						<Link 	style={styles.clickable}
+								to={`/${url}`}>
 							<div>
 								<img 	alt={el.data.title}
 										src={el.data.img_url}
