@@ -45,14 +45,8 @@ export class ToggleFave extends React.Component {
 		if (this.state.availableAction === '+')
 		{
 			let	newFave = {
-					url: CustomLink.customize({
-						place: DataFromLink.extra(history.location.pathname, 'item', 'sv'),
-						page: DataFromLink.extra(history.location.pathname, 'item', 'pg')
-					}),
-					numberInList: parent.getAttribute('data-numberinlist'),
-					price: document.getElementById('itemPrice').innerHTML,
-					place: image.getAttribute('alt'),
-					image: image.getAttribute('src'),
+					data: this.props.data,
+					place: this.props.data.lister_url,
 					uniqueKey: 'place'
 				};
 
@@ -67,7 +61,7 @@ export class ToggleFave extends React.Component {
 			this.RequestController.removeFromLocal({
 				list: 'faves',
 				name: 'place',
-				value: image.getAttribute('alt')
+				value: this.props.place
 			});
 
 			this.setState({

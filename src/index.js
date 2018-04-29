@@ -24,7 +24,7 @@ class Main extends React.Component {
 			<Router history={this.props.history}>
 				<Switch>
 					<Route exact path="/" component={SearchPage} />
-					<Route path="/favourites" component={FavesPage} />
+					<Route exact path="/favourites" component={FavesPage} />
 					<Route path="/items/" component={RecentSearchesPage} />
 					<Route path="/item/" component={ItemPage} />
 				</Switch>

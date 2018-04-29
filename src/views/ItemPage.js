@@ -18,41 +18,55 @@ export class ItemPage extends React.Component {
 	}
 
 	componentWillMount(){
-		let sv = DataFromLink.extra(this.props.history.location.pathname, 'item', 'sv'),
-			page = DataFromLink.extra(this.props.history.location.pathname, 'item', 'pg'),
-			url = CustomLink.customize({
-				place: sv,
-				page: page
-			});
-
-		console.log(url);
-
-		this.RequestController.send({
-			url: url,
-			method: 'GET',
-			headers: {
-				contentType: "text/plain"
-			}
-		}).then(response => {
-			this.RequestController.getResponse(response).then(data => {
-				this.setState({
-					list: data,
-					number: DataFromLink.extra(this.props.history.location.pathname, 'item', 'num')
+		if (this.props.history.location.pathname.match(/favourite/) === null)
+		{			
+			let sv = DataFromLink.extra(this.props.history.location.pathname, 'item', 'sv'),
+				page = DataFromLink.extra(this.props.history.location.pathname, 'item', 'pg'),
+				url = CustomLink.customize({
+					place: sv,
+					page: page
 				});
-			})
-		}).catch(error => {
-			this.RequestController.catchError(error);
-		});
+
+			this.RequestController.send({
+				url: url,
+				method: 'GET',
+				headers: {
+					contentType: "text/plain"
+				}
+			}).then(response => {
+				this.RequestController.getResponse(response).then(data => {
+					this.setState({
+						list: data,
+						number: DataFromLink.extra(this.props.history.location.pathname, 'item', 'num')
+					});
+				})
+			}).catch(error => {
+				this.RequestController.catchError(error);
+			});
+		}
+
+		else
+		{
+			let id = DataFromLink.extra(this.props.history.location.pathname, 'favourite', 'id');
+
+			this.setState({
+				list: this.RequestController.getFromLocal('faves')[id].data,
+				number: id
+			});			
+		}
 	}
 
 	render() {
 		if(!this.state.list) return false;
+		
+		let item;
 
-		let item = this.state.list.response.listings[this.state.number];		
+		if (this.state.list.response) item = this.state.list.response.listings[this.state.number];
+		else item = this.state.list;
 		return (
 			<div 	id='item'
 					data-numberinlist={this.state.number}>
-				<Header.ItemHeader place={item.title}/>
+				<Header.ItemHeader place={item.lister_url} data={item} />
 				<p id='itemPrice'>{item.price_formatted}</p>
 				<p>{item.title}</p>
 				<img 	id='item_image'

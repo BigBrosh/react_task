@@ -37,6 +37,6 @@ export const Header = {
 				<Link to='/'>PropertyCross</Link>
 			</h1>
 
-			<ToggleFave place={props.place}/>
+			<ToggleFave place={props.place} data={props.data}/>
 		</header>
 }

@@ -26,25 +26,20 @@ export class FavesPage extends React.Component {
 
 		if (list && list.length > 0)
 		{
-			result = list.map(el => {
-				let	place = DataFromLink.find(el.url, 'place_name'),
-					page = DataFromLink.find(el.url, 'page');
-
-				let url = `item/sv=${place}&pg=${page}&num=${el.numberInList}`;
+			result = list.map((el, i) => {
+				let url = `item/favourite/id=${i}`;
 
 				return (
-					<li 	key={`${el.numberInList}${el.index}`}
-							data-index={el.index}
-							data-numberinlist={el.numberInList}
+					<li 	key={i}
 							style={styles.itemList.listItem}>
 						<Link to={`/${url}`}>
 							<div>
-								<img 	alt={el.place}
-										src={el.image}
+								<img 	alt={el.data.title}
+										src={el.data.img_url}
 										style={{maxWidth: 150}}/>
 							</div>
 							<div>
-								<p>{el.price}<br/>{el.place}</p>
+								<p>{el.data.price_formatted}<br/>{el.data.title}</p>
 							</div>
 						</Link>
 					</li>
