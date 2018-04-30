@@ -4,17 +4,13 @@ import {RequestController} from '../../controllers/RequestController';
 import {styles} from '../../styles/mainStyles';
 
 export class ToggleFave extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			availableAction: '+'
-		};
+	state = {
+		availableAction: '+'
+	};
 
-		this.RequestController = new RequestController();
-		this.toggleFave = this.toggleFave.bind(this);
-	}
+	RequestController = new RequestController();
 
-	componentWillMount() {
+	componentWillMount = () => {
 		let favList = this.RequestController.getFromLocal('faves');
 
 		if (favList)
@@ -27,10 +23,10 @@ export class ToggleFave extends React.Component {
 					});
 				}
 			});
-		}		
-	}
+		}
+	};
 
-	toggleFave() {
+	toggleFave = () => {
 		if (this.state.availableAction === '+')
 		{
 			let	newFave = {
@@ -57,9 +53,9 @@ export class ToggleFave extends React.Component {
 				availableAction: '+'
 			});
 		}
-	}
+	};
 
-	render() {
+	render = () => {
 		return(
 			<button style={Object.assign({}, styles.buttons, styles.toggleFaveButton)}
 					onClick={this.toggleFave}>{this.state.availableAction}</button>
