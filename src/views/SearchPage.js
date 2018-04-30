@@ -23,46 +23,35 @@ import {RecentSearchesPage} from './RecentSearchesPage';
 import {styles} from '../styles/mainStyles';
 
 export class SearchPage extends React.Component {
-	constructor(props) {
-		super(props);
+	state = {
+		page: 'RecentSearches',
+		inputValue: ''
+	};
 
-		this.state = {
-			page: 'RecentSearches',
-			inputValue: ''
-		};
+	RequestController = new RequestController();
+	timer = 0;
 
-		this.onInput = this.onInput.bind(this);
-
-		this.RequestController = new RequestController();
-		this.timer = 0;
-
-		this.send = this.send.bind(this);
-		this.setSelectComponent = this.setSelectComponent.bind(this);
-		this.setErrorComponent = this.setErrorComponent.bind(this);
-		this.sendByUrl = this.sendByUrl.bind(this);
-	}
-
-	onInput(e) {
+	onInput = e => {
 		this.setState({
 			inputValue: e.target.value
 		});
-	}
+	};
 
-	setSelectComponent(response) {
+	setSelectComponent = response => {
 		this.setState({
 			page: 'SelectLocation',
 			response: response
 		});
-	}
+	};
 
-	setErrorComponent(response) {
+	setErrorComponent = response => {
 		this.setState({
 			page: 'ErrorResult',
 			response: response
 		});
-	}
+	};
 
-	TimeOut(name) {
+	TimeOut = name => {
 		return (
 			setInterval(( () => {
 				if (this.timer === 5)
@@ -79,14 +68,14 @@ export class SearchPage extends React.Component {
 				else this.timer++;
 			}), 1000)
 		);
-	}
+	};
 
-	ClearInterval(name) {
+	ClearInterval = name => {
 		clearInterval(this[name]);
 		this.timer = 0;
-	}
+	};
 
-	sendByUrl(inputData) {
+	sendByUrl = inputData => {
 		this.timing = this.TimeOut('timing');
 
 		this.RequestController.send({
@@ -127,9 +116,9 @@ export class SearchPage extends React.Component {
 		}).catch(error => {
 			this.showError(error);
 		});
-	}
+	};
 
-	send(inputData) {
+	send = inputData => {
 		// input data should contain info about search's type - action (e.g. place_name, centre_point),
 		// extra information - info, that comes after action and
 		// number of page (1 by default)
@@ -218,23 +207,23 @@ export class SearchPage extends React.Component {
 		}).catch(error => {
 			this.catchError(error);
 		})
-	}
+	};
 
-	showError(error) {
+	showError = error => {
 		this.ClearInterval('timing');
 		throw new Error(`${error.name} : ${error.message}`);
 	}
 
-	catchError(error) {
+	catchError = error => {
 		// input data should contain object with error's name and
 		// error's message
 
 		this.ClearInterval('timing');
 		this.setErrorComponent(error);
 		this.showError(error);
-	}
+	};
 
-	render() {
+	render = () => {
 		let current;
 		switch(this.state.page)
 		{
