@@ -6,14 +6,9 @@ import {RequestController} from '../../controllers/RequestController';
 import {styles} from '../../styles/mainStyles';
 
 export class RecentSearches extends React.Component {
-	constructor(props){
-		super(props);
+	RequestController = new RequestController();
 
-		this.RequestController = new RequestController();
-		this.showItems = this.showItems.bind(this);
-	}
-
-	showItems(e) {
+	showItems = e => {
 		let data = {
 			action: 'place_name',
 			info: e.target.getAttribute('data-searchvalue'),
@@ -22,9 +17,9 @@ export class RecentSearches extends React.Component {
 		};
 
 		this.props.showResults(data);
-	}
+	};
 
-	render() {
+	render = () => {
 		let list;
 
 		if (this.RequestController.getFromLocal('recentSearches') !== undefined)
