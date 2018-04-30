@@ -12,16 +12,13 @@ import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
 
 export class ItemPage extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			list: ''
-		};
-		
-		this.RequestController = new RequestController();
-	}
+	state = {
+		list: ''
+	};
+	
+	RequestController = new RequestController();
 
-	componentWillMount(){
+	componentWillMount = () => {
 		if (this.props.history.location.pathname.match(/favourite/) === null)
 		{			
 			let sv = DataFromLink.extra(this.props.history.location.pathname, 'item', 'sv'),
@@ -59,17 +56,17 @@ export class ItemPage extends React.Component {
 				number: id
 			});			
 		}
-	}
+	};
 
-	redirect(input) {
+	redirect = input => {
 		if (input == undefined)
 		{
 			history.replace('/404');
 			history.go();
 		}
-	}
+	};
 
-	render() {
+	render = () => {
 		if(!this.state.list) return false;		
 		
 		let item;
