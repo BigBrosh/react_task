@@ -16,7 +16,7 @@ import {styles} from '../styles/mainStyles';
 
 export class RecentSearchesPage extends React.Component {
 	list = [];
-	
+
 	state = {
 		button: 'Load more...',
 		page: 1,
@@ -54,7 +54,7 @@ export class RecentSearchesPage extends React.Component {
 		});
 	};
 
-	updateItem = (data) => {
+	updateItem = data => {
 		let matches = this.countMatches(data);
 		this.setState({
 			newList: data,
