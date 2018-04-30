@@ -6,7 +6,7 @@ export class LoadMore extends React.Component {
 	state = {
 		available: true,
 		loading: 'Load more...'
-	}
+	};
 
 	click = () => {
 		this.setState({
@@ -14,7 +14,7 @@ export class LoadMore extends React.Component {
 		});
 
 		this.props.loadMore();
-	}
+	};
 
 	componentWillMount = () => {
 		if (this.props.amount === 0)
@@ -23,7 +23,7 @@ export class LoadMore extends React.Component {
 				available: false
 			});
 		}
-	}
+	};
 
 	componentWillReceiveProps = nextProps => {
 		if (this.props && nextProps)
@@ -42,7 +42,7 @@ export class LoadMore extends React.Component {
 				available: false
 			});
 		}
-	}
+	};
 
 	render = () => {
 		let button;
