@@ -6,13 +6,9 @@ import {RequestController} from '../controllers/RequestController';
 import {styles} from '../styles/mainStyles';
 
 export class FavesPage extends React.Component {
-	constructor(props) {
-		super(props);
+	RequestController = new RequestController();
 
-		this.RequestController = new RequestController();
-	}
-
-	render() {
+	render = () => {
 		let list = this.RequestController.getFromLocal('faves'),
 			result;
 
