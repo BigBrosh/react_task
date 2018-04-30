@@ -4,13 +4,9 @@ import {RequestController} from '../../controllers/RequestController';
 import {styles} from '../../styles/mainStyles';
 
 export class GoButton extends React.Component {
-	constructor(props) {
-		super(props);
-		this.RequestController = new RequestController();
-		this.click = this.click.bind(this);
-	}
+	RequestController = new RequestController();
 
-	click(e) {
+	click = e => {
 		let info = e.target.parentNode.getElementsByTagName('input')[0].value,
 			recentSearches = this.RequestController.getFromLocal('recentSearches'),
 			index = recentSearches ? recentSearches.length : 0;
@@ -35,9 +31,9 @@ export class GoButton extends React.Component {
 			page: 1,
 			index: index
 		});
-	}
+	};
 
-	render() {
+	render = () => {
 		return(
 			<button style={Object.assign({}, styles.buttons, styles.searchWrapp.goButton)}
 					onClick={this.click}>Go</button>
