@@ -3,17 +3,12 @@ import React from 'react';
 import {styles} from '../../styles/mainStyles.js'
 
 export class LoadMore extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			available: true,
-			loading: 'Load more...'
-		};
-
-		this.click = this.click.bind(this);
+	state = {
+		available: true,
+		loading: 'Load more...'
 	}
 
-	click() {
+	click = () => {
 		this.setState({
 			loading: 'Loading...'
 		});
@@ -21,7 +16,7 @@ export class LoadMore extends React.Component {
 		this.props.loadMore();
 	}
 
-	componentWillMount() {
+	componentWillMount = () => {
 		if (this.props.amount === 0)
 		{
 			this.setState({
@@ -30,7 +25,7 @@ export class LoadMore extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps = nextProps => {
 		if (this.props && nextProps)
 		{
 			if (this.state.loading !== nextProps.loading)
@@ -49,7 +44,7 @@ export class LoadMore extends React.Component {
 		}
 	}
 
-	render() {
+	render = () => {
 		let button;
 
 		if (this.state.available === true)
