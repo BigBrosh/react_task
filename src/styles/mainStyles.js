@@ -1,7 +1,7 @@
-const colors = {
+export const colors = {
 	mainColor: '#1fcde0',
 	secondColor: '#1fb0e0'
-}
+};
 
 export let styles = {
 	header: {
@@ -85,5 +85,11 @@ export let styles = {
 			border: '1px solid' + colors.secondColor,
 			margin: 10
 		}
+	},
+
+	notFound: {
+		font: '48px sans-serif',
+		fontWeight: 'bold',
+		textAlign: 'center'
 	}
-}
+};

@@ -1,11 +1,15 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 
-import {Header} from '../header/Header'
+import {Header} from '../header/Header';
 
 // controllers and helpers
 import {RequestController} from '../controllers/RequestController';
 import {DataFromLink} from '../helpers/DataFromLink.js';
 import {CustomLink} from '../helpers/CustomLink';
+
+import createBrowserHistory from 'history/createBrowserHistory';
+const history = createBrowserHistory();
 
 export class ItemPage extends React.Component {
 	constructor(props) {
@@ -57,12 +61,19 @@ export class ItemPage extends React.Component {
 	}
 
 	render() {
-		if(!this.state.list) return false;
+		if(!this.state.list) return false;		
 		
 		let item;
 
 		if (this.state.list.response) item = this.state.list.response.listings[this.state.number];
 		else item = this.state.list;
+
+		if (item == undefined)
+		{
+			history.replace('/404');
+			history.go();
+		}
+
 		return (
 			<div 	id='item'
 					data-numberinlist={this.state.number}>
