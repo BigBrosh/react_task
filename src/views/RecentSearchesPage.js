@@ -15,24 +15,18 @@ import {LoadMore} from '../views/buttons/LoadMore';
 import {styles} from '../styles/mainStyles';
 
 export class RecentSearchesPage extends React.Component {
-	constructor(props) {
-		super(props);
-		this.list = [];
-		this.state = {
-			button: 'Load more...',
-			page: 1,
-			loading: 'done',
-			matches: 0
-		};
+	list = [];
+	
+	state = {
+		button: 'Load more...',
+		page: 1,
+		loading: 'done',
+		matches: 0
+	};
 
-		this.RequestController = new RequestController();
+	RequestController = new RequestController();
 
-		this.updateItem = this.updateItem.bind(this);
-		this.loadMore = this.loadMore.bind(this);
-		this.countMatches = this.countMatches.bind(this);
-	}
-
-	componentWillMount(){
+	componentWillMount = () => {
 		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
 			url = CustomLink.customize({
 				place: sv,
@@ -58,9 +52,9 @@ export class RecentSearchesPage extends React.Component {
 		}).catch(error => {
 			this.RequestController.catchError(error);
 		});
-	}
+	};
 
-	updateItem(data) {
+	updateItem = (data) => {
 		let matches = this.countMatches(data);
 		this.setState({
 			newList: data,
@@ -68,9 +62,9 @@ export class RecentSearchesPage extends React.Component {
 			matches: matches.currentMatches,
 			totalResults: matches.totalResults
 		});
-	}
+	};
 
-	loadMore() {
+	loadMore = () => {
 		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
 			url = CustomLink.customize({
 				place: sv,
@@ -97,9 +91,9 @@ export class RecentSearchesPage extends React.Component {
 		}).catch(error => {
 			this.RequestController.catchError(error);
 		});
-	}
+	};
 
-	countMatches(data) {
+	countMatches = data => {
 		let totalResults = data.response.total_results,
 			currentMatches = +data.request.num_res + +data.request.offset;
 		
@@ -110,9 +104,9 @@ export class RecentSearchesPage extends React.Component {
 		};
 
 		return matches;
-	}
+	};
 
-	render() {
+	render = () => {
 		if(!this.state.newList) return false;
 
 		let data = this.state.newList,
