@@ -47,14 +47,6 @@ export class RecentSearchesPage extends React.Component {
 			}
 		}).then(response => {
 			this.RequestController.getResponse(response).then(data => {
-				if (DataFromLink.find(url, 'place_name') !== sv)
-				{
-					this.RequestController.catchError({
-						name: 'Error',
-						message: 'page not found'
-					});					
-				}
-
 				let matches = this.countMatches(data);
 				this.setState({
 					newList: data,
