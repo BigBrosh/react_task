@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {styles} from '../../styles/mainStyles';
 
 export class SelectLocation extends React.Component {
-	render() {
+	render = () => {
 		let index = this.props.response.index;
 		let list = this.props.response.list.map((el, i) => {
 			let url = `item/sv=${this.props.response.info}&pg=${1}&num=${i}`;
