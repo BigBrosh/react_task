@@ -51,12 +51,21 @@ export class ItemPage extends React.Component {
 
 		else
 		{
-			let id = DataFromLink.extra(this.props.history.location.pathname, 'favourite', 'id');
+			let id = DataFromLink.extra(this.props.history.location.pathname, 'favourite', 'id');		
+			this.redirect(this.RequestController.getFromLocal('faves')[id]);
 
 			this.setState({
 				list: this.RequestController.getFromLocal('faves')[id].data,
 				number: id
 			});			
+		}
+	}
+
+	redirect(input) {
+		if (input == undefined)
+		{
+			history.replace('/404');
+			history.go();
 		}
 	}
 
@@ -68,11 +77,7 @@ export class ItemPage extends React.Component {
 		if (this.state.list.response) item = this.state.list.response.listings[this.state.number];
 		else item = this.state.list;
 
-		if (item == undefined)
-		{
-			history.replace('/404');
-			history.go();
-		}
+		this.redirect(item);
 
 		return (
 			<div 	id='item'
