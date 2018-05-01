@@ -87,6 +87,18 @@ export let styles = {
 		}
 	},
 
+	loadingSpinner: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		maxWidth: 90
+	},
+
+	commonImage: {
+		maxWidth: '100%'
+	},
+
 	notFound: {
 		font: '48px sans-serif',
 		fontWeight: 'bold',
