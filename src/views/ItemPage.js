@@ -58,7 +58,8 @@ export class ItemPage extends React.Component {
 
 			this.setState({
 				list: this.RequestController.getFromLocal('faves')[id].data,
-				number: id
+				number: id,
+				isLoading: false
 			});			
 		}
 	};
@@ -109,7 +110,7 @@ export class ItemPage extends React.Component {
 					<p>{item.bedroom_number || 0} bed, {item.bathroom_number || 0} bathrooms</p>
 					<p>{item.summary}</p>
 				</div>
-			);
+			)
 		}		
 	}
 };
