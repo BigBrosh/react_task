@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import {Loading} from '../components/Loading';
 import {Header} from '../header/Header';
 
 // controllers and helpers
@@ -21,12 +22,17 @@ export class RecentSearchesPage extends React.Component {
 		button: 'Load more...',
 		page: 1,
 		loading: 'done',
-		matches: 0
+		matches: 0,
+		isLoading: false
 	};
 
 	RequestController = new RequestController();
 
 	componentWillMount = () => {
+		this.setState({
+			isLoading: true
+		});
+
 		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
 			url = CustomLink.customize({
 				place: sv,
@@ -61,6 +67,17 @@ export class RecentSearchesPage extends React.Component {
 			page: this.state.page + 1,
 			matches: matches.currentMatches,
 			totalResults: matches.totalResults
+		});
+	};
+
+	shouldComponentUpdate = (nextProps, nextState) => {
+		if (this.state.newList === nextState.newList && this.state.isLoading === nextState.isLoading) return false;
+		else return true;
+	}
+
+	componentDidUpdate = () => {
+		this.setState({
+			isLoading: false
 		});
 	};
 
@@ -107,50 +124,54 @@ export class RecentSearchesPage extends React.Component {
 	};
 
 	render = () => {
-		if(!this.state.newList) return false;
+		if (this.state.isLoading)
+			return <Loading />;
 
-		let data = this.state.newList,
-			sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv');
+		else
+		{
+			let data = this.state.newList,
+				sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv');
 
-		let result = data.response.listings.map((el, i) => {
-			let page = Math.floor(i/20);
-			page = page >= 1 ? page : 1;
+			let result = data.response.listings.map((el, i) => {
+				let page = Math.floor(i/20);
+				page = page >= 1 ? page : 1;
 
-			let url = `/item/sv=${sv}&pg=${page}&num=${i}`;
-			return (
-				<li 	data-id={i}
-						data-page={this.state.page}
-						style={styles.itemList.listItem}
-						key={`${this.state.page}${i}`}>
-					<Link 	style={styles.clickable}
-							to={url}>
-						<div>
-							<img 	alt={el.title}
-									src={el.img_url}
-									style={{maxWidth: 150}}/>
-						</div>
-						<div>
-							<p>{el.price_formatted}<br/>{el.title}</p>
-						</div>
-					</Link>
-				</li>
-			);
-		});
+				let url = `/item/sv=${sv}&pg=${page}&num=${i}`;
+				return (
+					<li 	data-id={i}
+							data-page={this.state.page}
+							style={styles.itemList.listItem}
+							key={`${this.state.page}${i}`}>
+						<Link 	style={styles.clickable}
+								to={url}>
+							<div>
+								<img 	alt={el.title}
+										src={el.img_url}
+										style={{maxWidth: 150}}/>
+							</div>
+							<div>
+								<p>{el.price_formatted}<br/>{el.title}</p>
+							</div>
+						</Link>
+					</li>
+				);
+			});
 
-		this.list = this.list.concat(result);
-		let list = this.list,
-			matches = <p>{this.state.matches} of {this.state.totalResults}</p>;
+			this.list = this.list.concat(result);
+			let list = this.list,
+				matches = <p>{this.state.matches} of {this.state.totalResults}</p>;
 
 
-		return(
-			<div>
-				<Header.MainHeader />
-				{matches}
-				<ul style={styles.itemList.list} data-index={this.props.index}>
-					{list}
-				</ul>
-				<LoadMore loading={this.state.loading} loadMore={this.loadMore} amount={this.state.matches}/>
-			</div>
-		);
+			return(
+				<div>
+					<Header.MainHeader />
+					{matches}
+					<ul style={styles.itemList.list} data-index={this.props.index}>
+						{list}
+					</ul>
+					<LoadMore loading={this.state.loading} loadMore={this.loadMore} amount={this.state.matches}/>
+				</div>
+			);			
+		}
 	}
 }
