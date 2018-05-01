@@ -36,7 +36,7 @@ export class LoadMore extends React.Component {
 			}
 		}
 
-		if (this.props.amount === nextProps.amount)
+		if (this.props.amount === nextProps.amount || nextProps.amount >= nextProps.total)
 		{
 			this.setState({
 				available: false

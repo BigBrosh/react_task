@@ -169,7 +169,7 @@ export class RecentSearchesPage extends React.Component {
 					<ul style={styles.itemList.list} data-index={this.props.index}>
 						{list}
 					</ul>
-					<LoadMore loading={this.state.loading} loadMore={this.loadMore} amount={this.state.matches}/>
+					<LoadMore loading={this.state.loading} loadMore={this.loadMore} amount={this.state.matches} total={this.state.totalResults}/>
 				</div>
 			);			
 		}
