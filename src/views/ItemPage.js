@@ -1,5 +1,4 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
 
 import {Header} from '../header/Header';
 
@@ -59,7 +58,7 @@ export class ItemPage extends React.Component {
 	};
 
 	redirect = input => {
-		if (input == undefined)
+		if (input === undefined)
 		{
 			history.replace('/404');
 			history.go();

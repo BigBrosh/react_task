@@ -11,7 +11,7 @@ export class GoButton extends React.Component {
 			recentSearches = this.RequestController.getFromLocal('recentSearches'),
 			index = recentSearches ? recentSearches.length : 0;
 
-		if(info.search(/[ , \/, \,, $, .]/) != -1)
+		if(info.search(/[ , \/, \,, $, .]/) !== -1)
 		{
 			alert(`Invalid input on ${info.search(/[ , \/, \,]/) + 1} position.\nPlease, fix it.`);
 			return false;
