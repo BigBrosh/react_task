@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {Loading} from '../components/Loading';
 import {Header} from '../header/Header';
 
 // controllers and helpers
@@ -12,12 +13,17 @@ const history = createBrowserHistory();
 
 export class ItemPage extends React.Component {
 	state = {
-		list: ''
+		list: '',
+		isLoading: false
 	};
 	
 	RequestController = new RequestController();
 
 	componentWillMount = () => {
+		this.setState({
+			isLoading: true
+		});
+
 		if (this.props.history.location.pathname.match(/favourite/) === null)
 		{			
 			let sv = DataFromLink.extra(this.props.history.location.pathname, 'item', 'sv'),
@@ -57,6 +63,17 @@ export class ItemPage extends React.Component {
 		}
 	};
 
+	shouldComponentUpdate = (nextProps, nextState) => {
+		if (this.state.list === nextState.list && this.state.isLoading === nextState.isLoading) return false;
+		else return true;
+	}
+
+	componentDidUpdate = () => {
+		this.setState({
+			isLoading: false
+		});
+	};
+
 	redirect = input => {
 		if (input === undefined)
 		{
@@ -66,29 +83,33 @@ export class ItemPage extends React.Component {
 	};
 
 	render = () => {
-		if(!this.state.list) return false;		
-		
-		let item;
+		if (this.state.isLoading)
+			return <Loading />;
 
-		if (this.state.list.response) item = this.state.list.response.listings[this.state.number];
-		else item = this.state.list;
+		else
+		{
+			let item;
 
-		this.redirect(item);
+			if (this.state.list.response) item = this.state.list.response.listings[this.state.number];
+			else item = this.state.list;
 
-		return (
-			<div 	id='item'
-					data-numberinlist={this.state.number}>
-				<Header.ItemHeader place={item.lister_url} data={item} />
-				<p id='itemPrice'>{item.price_formatted}</p>
-				<p>{item.title}</p>
-				<img 	id='item_image'
-						src={item.img_url}
-						alt={item.title}
-						style={{maxWidth: '100%'}} />
+			this.redirect(item);
 
-				<p>{item.bedroom_number || 0} bed, {item.bathroom_number || 0} bathrooms</p>
-				<p>{item.summary}</p>
-			</div>
-		)
+			return (
+				<div id='item'
+					 data-numberinlist={this.state.number}>
+					<Header.ItemHeader place={item.lister_url} data={item} />
+					<p id='itemPrice'>{item.price_formatted}</p>
+					<p>{item.title}</p>
+					<img 	id='item_image'
+							src={item.img_url}
+							alt={item.title}
+							style={{maxWidth: '100%'}} />
+
+					<p>{item.bedroom_number || 0} bed, {item.bathroom_number || 0} bathrooms</p>
+					<p>{item.summary}</p>
+				</div>
+			);
+		}		
 	}
 }
