@@ -1,10 +1,15 @@
 import React from 'react';
 
+import {store} from '../../reducer/reducer';
+
 import {styles} from '../../styles/mainStyles';
 
 export class MyLocationButton extends React.Component {
 	click = () => {	
-		navigator.geolocation.getCurrentPosition(this.showPosition);	
+		store.dispatch({
+			type: 'LOCATION_CLICK'			
+		});
+		navigator.geolocation.getCurrentPosition(this.showPosition);
 	};
 
 	showPosition = position => {

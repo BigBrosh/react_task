@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {store} from '../../reducer/reducer';
+
 import {RequestController} from '../../controllers/RequestController';
 import {styles} from '../../styles/mainStyles';
 
@@ -24,6 +26,10 @@ export class GoButton extends React.Component {
 					index = i;
 			});
 		}
+
+		store.dispatch({
+			type: 'GO_CLICK'			
+		});
 
 		this.props.onClick({
 			info: info,
