@@ -1,7 +1,7 @@
-const colors = {
+export const colors = {
 	mainColor: '#1fcde0',
 	secondColor: '#1fb0e0'
-}
+};
 
 export let styles = {
 	header: {
@@ -14,11 +14,14 @@ export let styles = {
 	},
 
 	clickable: {
-		cursor: 'pointer'
+		cursor: 'pointer',
+		textDecoration: 'none',
+		color: 'inherit'
 	},
 
 	h1: {
-		margin: '0px auto'
+		margin: '0px auto',
+		color: '#000'
 	},
 
 	commonList: {
@@ -82,5 +85,23 @@ export let styles = {
 			border: '1px solid' + colors.secondColor,
 			margin: 10
 		}
+	},
+
+	loadingSpinner: {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		maxWidth: 90
+	},
+
+	commonImage: {
+		maxWidth: '100%'
+	},
+
+	notFound: {
+		font: '48px sans-serif',
+		fontWeight: 'bold',
+		textAlign: 'center'
 	}
-}
+};

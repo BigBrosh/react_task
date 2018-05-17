@@ -3,34 +3,29 @@ import React from 'react';
 import {styles} from '../../styles/mainStyles.js'
 
 export class LoadMore extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			available: true,
-			loading: 'Load more...'
-		};
+	state = {
+		available: true,
+		loading: 'Load more...'
+	};
 
-		this.click = this.click.bind(this);
-	}
-
-	click() {
+	click = () => {
 		this.setState({
 			loading: 'Loading...'
 		});
 
 		this.props.loadMore();
-	}
+	};
 
-	componentWillMount() {
+	componentWillMount = () => {
 		if (this.props.amount === 0)
 		{
 			this.setState({
 				available: false
 			});
 		}
-	}
+	};
 
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps = nextProps => {
 		if (this.props && nextProps)
 		{
 			if (this.state.loading !== nextProps.loading)
@@ -41,15 +36,15 @@ export class LoadMore extends React.Component {
 			}
 		}
 
-		if (this.props.amount === nextProps.amount)
+		if (this.props.amount === nextProps.amount || nextProps.amount >= nextProps.total)
 		{
 			this.setState({
 				available: false
 			});
 		}
-	}
+	};
 
-	render() {
+	render = () => {
 		let button;
 
 		if (this.state.available === true)

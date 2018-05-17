@@ -1,20 +1,16 @@
 import React from 'react';
 
+import {store} from '../../reducer/reducer';
+
 import {styles} from '../../styles/mainStyles';
 
 export class MyLocationButton extends React.Component {
-	constructor(props) {
-		super(props);
-		this.click = this.click.bind(this);
-		this.click = this.click.bind(this);
-		this.showPosition = this.showPosition.bind(this);
-	}
+	click = () => {	
+		this.props.clicker();
+		navigator.geolocation.getCurrentPosition(this.showPosition);
+	};
 
-	click() {	
-		navigator.geolocation.getCurrentPosition(this.showPosition);	
-	}
-
-	showPosition(position) {
+	showPosition = position => {
 		let pos = {
 			latitude: position.coords.latitude,
 			longitude: position.coords.longitude
@@ -24,9 +20,9 @@ export class MyLocationButton extends React.Component {
 			info: `${pos.latitude}, ${pos.longitude}`,
 			action: 'centre_point'
 		});
-	}
+	};
 
-	render() {
+	render = () => {
 		return(
 			<button style={styles.buttons}
 					onClick={this.click}>My location</button>

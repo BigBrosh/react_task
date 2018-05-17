@@ -4,17 +4,13 @@ import {RequestController} from '../../controllers/RequestController';
 import {styles} from '../../styles/mainStyles';
 
 export class ToggleFave extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			availableAction: '+'
-		};
+	state = {
+		availableAction: '+'
+	};
 
-		this.RequestController = new RequestController();
-		this.toggleFave = this.toggleFave.bind(this);
-	}
+	RequestController = new RequestController();
 
-	componentWillMount() {
+	componentWillMount = () => {
 		let favList = this.RequestController.getFromLocal('faves');
 
 		if (favList)
@@ -27,22 +23,15 @@ export class ToggleFave extends React.Component {
 					});
 				}
 			});
-		}		
-	}
+		}
+	};
 
-	toggleFave() {
-		let parent = document.getElementById('item'),
-			image = document.getElementById('item_image');
-
+	toggleFave = () => {
 		if (this.state.availableAction === '+')
-		{			
+		{
 			let	newFave = {
-					url: this.RequestController.getFromLocal('recentSearches')[parent.getAttribute('data-numberinlist')].url,
-					numberInList: parent.getAttribute('data-numberinlist'),
-					price: document.getElementById('itemPrice').innerHTML,
-					place: image.getAttribute('alt'),
-					image: image.getAttribute('src'),
-					index: parent.getAttribute('data-index'),
+					data: this.props.data,
+					place: this.props.data.lister_url,
 					uniqueKey: 'place'
 				};
 
@@ -57,16 +46,16 @@ export class ToggleFave extends React.Component {
 			this.RequestController.removeFromLocal({
 				list: 'faves',
 				name: 'place',
-				value: image.getAttribute('alt')
+				value: this.props.place
 			});
 
 			this.setState({
 				availableAction: '+'
 			});
 		}
-	}
+	};
 
-	render() {
+	render = () => {
 		return(
 			<button style={Object.assign({}, styles.buttons, styles.toggleFaveButton)}
 					onClick={this.toggleFave}>{this.state.availableAction}</button>

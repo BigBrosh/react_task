@@ -1,9 +1,7 @@
 export class RequestController {
-	constructor() {
-		this.timer = 0;
-	}
+	timer = 0;
 
-	TimeOut(name) {
+	TimeOut = name => {
 		return (
 			setInterval(( () => {
 				if (this.timer === 5)
@@ -20,14 +18,14 @@ export class RequestController {
 				else this.timer++;
 			}), 1000)
 		);
-	}
+	};
 
-	ClearInterval(name) {
+	ClearInterval = name => {
 		clearInterval(this[name]);
 		this.timer = 0;
-	}
+	};
 
-	send(properties) {
+	send = properties => {
 		return (
 			fetch(properties.url, {
 				method: properties.method || 'GET',
@@ -36,9 +34,9 @@ export class RequestController {
 				}
 			})
 		)
-	}
+	};
 
-	sendToLocal(place, request) {
+	sendToLocal = (place, request) => {
 		// input data should contain localStorage key's name and
 		// object with key parameters
 
@@ -68,16 +66,19 @@ export class RequestController {
 				localStorage.setItem(place, JSON.stringify(newList));
 			}
 		}
-	}
+	};
 
-	getFromLocal(place) {
+	getFromLocal = place => {
 		// input data contains localStorages key's name
 
 		if (localStorage.getItem(place))
-			return JSON.parse(localStorage.getItem(place));
-	}
+		{	
+			let a = JSON.parse(localStorage.getItem(place));
+			return a;
+		}
+	};
 
-	removeFromLocal(data) {
+	removeFromLocal = data => {
 		let current = this.getFromLocal(data.list);
 
 		current.forEach((el, i) => {
@@ -86,13 +87,13 @@ export class RequestController {
 		});
 
 		localStorage.setItem(data.list, JSON.stringify(current));
-	}
+	};
 
-	getResponse(response) {
+	getResponse = response => {
 		return response.json();
-	}
+	};
 
-	catchError(error) {
+	catchError = error => {
 		throw(`${error.name}: ${error.message}`);
-	}
-}
+	};
+};

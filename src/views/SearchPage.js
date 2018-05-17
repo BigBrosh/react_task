@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {goClick, locationClick} from '../reducer/actions';
+
 import {Header} from '../header/Header';
 import {Instructional} from '../header/Instructional';
 
@@ -10,63 +14,47 @@ import {MyLocationButton} from '../search/buttons/MyLocationButton';
 
 // controllers
 import {RequestController} from '../controllers/RequestController';
-import {ItemController} from '../controllers/ItemController';
 
 // search results
 import {RecentSearches} from '../search/SearchResults/RecentSearches';
 import {SelectLocation} from '../search/SearchResults/SelectLocation';
 import {ErrorResult} from '../search/SearchResults/ErrorResult';
 
-// pages
-import {RecentSearchesPage} from './RecentSearchesPage';
-
 // styles
 import {styles} from '../styles/mainStyles';
 
-export class SearchPage extends React.Component {
-	constructor(props) {
-		super(props);
+class SearchPage extends React.Component {
+	state = {
+		page: 'RecentSearches',
+		inputValue: ''
+	};
 
-		this.state = {
-			page: 'RecentSearches',
-			inputValue: ''
-		};
+	RequestController = new RequestController();
+	timer = 0;
 
-		this.onInput = this.onInput.bind(this);
-
-		this.RequestController = new RequestController();
-		this.ItemController = new ItemController();
-		this.timer = 0;
-
-		this.send = this.send.bind(this);
-		this.setSelectComponent = this.setSelectComponent.bind(this);
-		this.setErrorComponent = this.setErrorComponent.bind(this);
-		this.sendByUrl = this.sendByUrl.bind(this);
-	}
-
-	onInput(e) {
+	onInput = e => {
 		this.setState({
 			inputValue: e.target.value
 		});
-	}
+	};
 
-	setSelectComponent(response) {
+	setSelectComponent = response => {
 		this.setState({
 			page: 'SelectLocation',
 			response: response
 		});
-	}
+	};
 
-	setErrorComponent(response) {
+	setErrorComponent = response => {
 		this.setState({
 			page: 'ErrorResult',
 			response: response
 		});
-	}
+	};
 
-	TimeOut(name) {
+	TimeOut = name => {
 		return (
-			setInterval(( () => {
+			setInterval( () => {
 				if (this.timer === 5)
 				{
 					let error = {
@@ -79,16 +67,15 @@ export class SearchPage extends React.Component {
 				}
 
 				else this.timer++;
-			}), 1000)
-		);
-	}
+			}), 1000);
+	};
 
-	ClearInterval(name) {
+	ClearInterval = name => {
 		clearInterval(this[name]);
 		this.timer = 0;
-	}
+	};
 
-	sendByUrl(inputData) {
+	sendByUrl = inputData => {
 		this.timing = this.TimeOut('timing');
 
 		this.RequestController.send({
@@ -129,9 +116,9 @@ export class SearchPage extends React.Component {
 		}).catch(error => {
 			this.showError(error);
 		});
-	}
+	};
 
-	send(inputData) {
+	send = inputData => {
 		// input data should contain info about search's type - action (e.g. place_name, centre_point),
 		// extra information - info, that comes after action and
 		// number of page (1 by default)
@@ -156,26 +143,15 @@ export class SearchPage extends React.Component {
 				{
 					this.ClearInterval('timing');
 
-					if (inputData.RecentSearchesPage === true)
-					{
-						ReactDOM.render(
-							<RecentSearchesPage data={data} 
-												send={this.send}
-												sendByUrl={this.sendByUrl} 
-												index={inputData.index} 
-												info={inputData.info} />,
-							document.getElementById('root')
-						);
-					}
-
-					else if (inputData.getResponse === true && data){
+					if (inputData.getResponse === true && data){
 						this.ClearInterval('timing');
 						inputData.onSuccess(data);
 					}
 
 					this.setSelectComponent({
 						list: data.response.listings,
-						index: inputData.index
+						index: inputData.index,
+						info: inputData.info
 					});
 
 					this.RequestController.sendToLocal('recentSearches', {
@@ -219,24 +195,23 @@ export class SearchPage extends React.Component {
 		}).catch(error => {
 			this.catchError(error);
 		})
-	}
+	};
 
-	showError(error) {
+	showError = error => {
 		this.ClearInterval('timing');
 		throw new Error(`${error.name} : ${error.message}`);
 	}
 
-	catchError(error) {
+	catchError = error => {
 		// input data should contain object with error's name and
 		// error's message
 
 		this.ClearInterval('timing');
 		this.setErrorComponent(error);
 		this.showError(error);
-		this.RequestController.catchError(error);
-	}
+	};
 
-	render() {
+	render = () => {
 		let current;
 		switch(this.state.page)
 		{
@@ -264,11 +239,26 @@ export class SearchPage extends React.Component {
 							style={styles.searchWrapp.input}
 							type="text"
 							value={this.state.inputValue}></input>
-					<GoButton onClick={this.send} />
-					<MyLocationButton onClick={this.send} />
+					<GoButton onClick={this.send} clicker={this.props.goClick}/>
+					<MyLocationButton onClick={this.send} clicker={this.props.locationClick}/>
 				</div>
 				{current}
 			</div>
 		);
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		clicks: state
+	};
+}
+
+function mapDispatchToProps (dispatch) {
+	return {
+		goClick: bindActionCreators(goClick, dispatch),
+		locationClick: bindActionCreators(locationClick, dispatch)
+	};
+}
+
+export default connect (mapStateToProps, mapDispatchToProps)(SearchPage);
