@@ -66,7 +66,7 @@ export class SearchPage extends React.Component {
 
 	TimeOut(name) {
 		return (
-			setInterval(( () => {
+			setInterval( () => {
 				if (this.timer === 5)
 				{
 					let error = {
@@ -79,8 +79,7 @@ export class SearchPage extends React.Component {
 				}
 
 				else this.timer++;
-			}), 1000)
-		);
+			}), 1000);
 	}
 
 	ClearInterval(name) {
