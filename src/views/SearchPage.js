@@ -20,9 +20,6 @@ import {RecentSearches} from '../search/SearchResults/RecentSearches';
 import {SelectLocation} from '../search/SearchResults/SelectLocation';
 import {ErrorResult} from '../search/SearchResults/ErrorResult';
 
-// pages
-import {RecentSearchesPage} from './RecentSearchesPage';
-
 // styles
 import {styles} from '../styles/mainStyles';
 
@@ -146,19 +143,7 @@ class SearchPage extends React.Component {
 				{
 					this.ClearInterval('timing');
 
-					if (inputData.RecentSearchesPage === true)
-					{
-						ReactDOM.render(
-							<RecentSearchesPage data={data} 
-												send={this.send}
-												sendByUrl={this.sendByUrl} 
-												index={inputData.index} 
-												info={inputData.info} />,
-							document.getElementById('root')
-						);
-					}
-
-					else if (inputData.getResponse === true && data){
+					if (inputData.getResponse === true && data){
 						this.ClearInterval('timing');
 						inputData.onSuccess(data);
 					}
