@@ -239,8 +239,8 @@ class SearchPage extends React.Component {
 							style={styles.searchWrapp.input}
 							type="text"
 							value={this.state.inputValue}></input>
-					<GoButton onClick={this.send} clicker={this.props.goClick}/>
-					<MyLocationButton onClick={this.send} clicker={this.props.locationClick}/>
+					<GoButton onClick={this.send} />
+					<MyLocationButton onClick={this.send} />
 				</div>
 				{current}
 			</div>

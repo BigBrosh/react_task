@@ -27,8 +27,6 @@ export class GoButton extends React.Component {
 			});
 		}
 
-		this.props.clicker();
-
 		this.props.onClick({
 			info: info,
 			action: 'place_name',

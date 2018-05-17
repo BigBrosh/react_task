@@ -5,8 +5,7 @@ import {store} from '../../reducer/reducer';
 import {styles} from '../../styles/mainStyles';
 
 export class MyLocationButton extends React.Component {
-	click = () => {	
-		this.props.clicker();
+	click = () => {
 		navigator.geolocation.getCurrentPosition(this.showPosition);
 	};
 
