@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Provider} from 'react-redux';
+import {store} from './reducer/reducer';
+
 import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import {RecentSearchesPage} from './views/RecentSearchesPage';
-import {SearchPage} from './views/SearchPage';
+import SearchPage from './views/SearchPage';
 import {FavesPage} from './views/FavesPage';
 import {ItemPage} from './views/ItemPage';
 import {ErrorPage} from './views/ErrorPage';
@@ -20,16 +23,18 @@ class Main extends React.Component {
 
 	render = () => {
 		return(
-			<Router history={this.props.history}>
-				<Switch>
-					<Route exact path="/" component={SearchPage} />
-					<Route exact path="/favourites" component={FavesPage} />
-					<Route path="/items/" component={RecentSearchesPage} />
-					<Route path="/item/" component={ItemPage} />
-					<Route path="/404" component={ErrorPage} />
-					<Redirect to='/404' />
-				</Switch>
-			</Router>
+			<Provider store={store}>
+				<Router history={this.props.history}>
+					<Switch>
+						<Route exact path="/" component={SearchPage} />
+						<Route exact path="/favourites" component={FavesPage} />
+						<Route path="/items/" component={RecentSearchesPage} />
+						<Route path="/item/" component={ItemPage} />
+						<Route path="/404" component={ErrorPage} />
+						<Redirect to='/404' />
+					</Switch>
+				</Router>
+			</Provider>
 		)
 	}
 };

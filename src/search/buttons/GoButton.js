@@ -27,9 +27,7 @@ export class GoButton extends React.Component {
 			});
 		}
 
-		store.dispatch({
-			type: 'GO_CLICK'			
-		});
+		this.props.clicker();
 
 		this.props.onClick({
 			info: info,

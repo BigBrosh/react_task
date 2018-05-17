@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {goClick, locationClick} from '../reducer/actions';
+
 import {Header} from '../header/Header';
 import {Instructional} from '../header/Instructional';
 
@@ -22,7 +26,7 @@ import {RecentSearchesPage} from './RecentSearchesPage';
 // styles
 import {styles} from '../styles/mainStyles';
 
-export class SearchPage extends React.Component {
+class SearchPage extends React.Component {
 	state = {
 		page: 'RecentSearches',
 		inputValue: ''
@@ -251,11 +255,26 @@ export class SearchPage extends React.Component {
 							style={styles.searchWrapp.input}
 							type="text"
 							value={this.state.inputValue}></input>
-					<GoButton onClick={this.send} />
-					<MyLocationButton onClick={this.send} />
+					<GoButton onClick={this.send} clicker={this.props.goClick}/>
+					<MyLocationButton onClick={this.send} clicker={this.props.locationClick}/>
 				</div>
 				{current}
 			</div>
 		);
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		clicks: state
+	};
+}
+
+function mapDispatchToProps (dispatch) {
+	return {
+		goClick: bindActionCreators(goClick, dispatch),
+		locationClick: bindActionCreators(locationClick, dispatch)
+	};
+}
+
+export default connect (mapStateToProps, mapDispatchToProps)(SearchPage);

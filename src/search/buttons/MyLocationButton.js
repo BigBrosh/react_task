@@ -6,9 +6,7 @@ import {styles} from '../../styles/mainStyles';
 
 export class MyLocationButton extends React.Component {
 	click = () => {	
-		store.dispatch({
-			type: 'LOCATION_CLICK'			
-		});
+		this.props.clicker();
 		navigator.geolocation.getCurrentPosition(this.showPosition);
 	};
 
