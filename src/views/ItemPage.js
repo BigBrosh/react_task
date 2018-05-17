@@ -1,6 +1,9 @@
 import React from 'react';
 
-import {Loading} from '../components/Loading/Loading';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {loadingOn, loadingOff} from '../reducer/actions';
+
 import {Header} from '../header/Header';
 
 // controllers and helpers
@@ -11,18 +14,15 @@ import {CustomLink} from '../helpers/CustomLink';
 import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
 
-export class ItemPage extends React.Component {
+class ItemPage extends React.Component {
 	state = {
-		list: '',
-		isLoading: false
+		list: ''
 	};
 	
 	RequestController = new RequestController();
 
 	componentWillMount = () => {
-		this.setState({
-			isLoading: true
-		});
+		this.props.loadingOn();
 
 		if (this.props.history.location.pathname.match(/favourite/) === null)
 		{			
@@ -56,23 +56,21 @@ export class ItemPage extends React.Component {
 			let id = DataFromLink.extra(this.props.history.location.pathname, 'favourite', 'id');		
 			this.redirect(this.RequestController.getFromLocal('faves')[id]);
 
+			this.props.loadingOff();
 			this.setState({
 				list: this.RequestController.getFromLocal('faves')[id].data,
-				number: id,
-				isLoading: false
+				number: id
 			});			
 		}
 	};
 
 	shouldComponentUpdate = (nextProps, nextState) => {
-		if (this.state.list === nextState.list && this.state.isLoading === nextState.isLoading) return false;
+		if (this.state.list === nextState.list && this.state.list === '') return false;
 		else return true;
 	}
 
 	componentDidUpdate = () => {
-		this.setState({
-			isLoading: false
-		});
+		this.props.loadingOff();
 	};
 
 	redirect = input => {
@@ -84,10 +82,7 @@ export class ItemPage extends React.Component {
 	};
 
 	render = () => {
-		if (this.state.isLoading)
-			return <Loading />;
-
-		else
+		if (this.state.list !== '')
 		{
 			let item;
 
@@ -111,6 +106,23 @@ export class ItemPage extends React.Component {
 					<p>{item.summary}</p>
 				</div>
 			)
-		}		
+		}
+
+		else return false;
 	}
 };
+
+function mapStateToProps (state) {
+	return {
+		loading: state.loading
+	};
+}
+
+function mapDispatchToProps (dispatch) {
+	return {
+		loadingOn: bindActionCreators(loadingOn, dispatch),
+		loadingOff: bindActionCreators(loadingOff, dispatch)
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemPage);

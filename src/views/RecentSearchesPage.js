@@ -1,7 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {Loading} from '../components/Loading/Loading';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {loadingOn, loadingOff} from '../reducer/actions';
+
+import Loading from '../components/Loading/Loading';
 import {Header} from '../header/Header';
 
 // controllers and helpers
@@ -15,23 +19,20 @@ import {LoadMore} from '../views/buttons/LoadMore';
 // styles
 import {styles} from '../styles/mainStyles';
 
-export class RecentSearchesPage extends React.Component {
+class RecentSearchesPage extends React.Component {
 	list = [];
 
 	state = {
 		button: 'Load more...',
 		page: 1,
 		loading: 'done',
-		matches: 0,
-		isLoading: false
+		matches: 0
 	};
 
 	RequestController = new RequestController();
 
 	componentWillMount = () => {
-		this.setState({
-			isLoading: true
-		});
+		this.props.loadingOn();
 
 		let sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv'),
 			url = CustomLink.customize({
@@ -71,14 +72,12 @@ export class RecentSearchesPage extends React.Component {
 	};
 
 	shouldComponentUpdate = (nextProps, nextState) => {
-		if (this.state.newList === nextState.newList && this.state.isLoading === nextState.isLoading) return false;
+		if (this.state.newList === nextState.newList) return false;
 		else return true;
 	}
 
 	componentDidUpdate = () => {
-		this.setState({
-			isLoading: false
-		});
+		this.props.loadingOff();
 	};
 
 	loadMore = () => {
@@ -124,10 +123,7 @@ export class RecentSearchesPage extends React.Component {
 	};
 
 	render = () => {
-		if (this.state.isLoading)
-			return <Loading />;
-
-		else
+		if (this.state.newList)
 		{
 			let data = this.state.newList,
 				sv = DataFromLink.extra(this.props.history.location.pathname, 'recent', 'sv');
@@ -173,5 +169,22 @@ export class RecentSearchesPage extends React.Component {
 				</div>
 			);			
 		}
+
+		else return false;
 	}
 }
+
+function mapStateToProps (state) {
+	return {
+		loading: state.loading
+	};
+}
+
+function mapDispatchToProps (dispatch) {
+	return {
+		loadingOn: bindActionCreators(loadingOn, dispatch),
+		loadingOff: bindActionCreators(loadingOff, dispatch)
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentSearchesPage);
