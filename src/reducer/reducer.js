@@ -6,19 +6,11 @@ const initialState = {
 };
 
 const clicks = (state=initialState, action) => {
-	if (action.type === 'GO_CLICK'){
-		let current = state;
-		++current.go;
+	if (action.type === 'GO_CLICK')
+		return Object.assign({}, state, ++state.go);
 
-		return current;
-	}
-
-	else if (action.type === 'LOCATION_CLICK'){
-		let current = state;
-		++current.location;
-
-		return current;
-	}
+	else if (action.type === 'LOCATION_CLICK')
+		return Object.assign({}, state, ++state.location);
 
 	return state;
 };
